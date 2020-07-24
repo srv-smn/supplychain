@@ -4,29 +4,36 @@ import './App.scss';
 import AppRoutes from './AppRoutes';
 import Navbar from './shared/Navbar';
 import Sidebar from './shared/Sidebar';
+import User_Sidebar from './shared/User_Sidebar';
 import Footer from './shared/Footer';
 import CampaignIndex from './demo.js';
 
 class App extends Component {
-  state = {}
+  state = {};
   componentDidMount() {
     this.onRouteChanged();
   }
-  render () {
-    let navbarComponent = !this.state.isFullPageLayout ? <Navbar/> : '';
-    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar/> : '';
-    let footerComponent = !this.state.isFullPageLayout ? <Footer/> : '';
-    return (
+  render() {
+    let navbarComponent = !this.state.isFullPageLayout ? <Navbar /> : '';
+    var a = 1;
+    let sidebarComponent;
+    if (a === 1) {
+      sidebarComponent = !this.state.isFullPageLayout ? <User_Sidebar /> : '';
+    } else {
+      sidebarComponent = !this.state.isFullPageLayout ? <Sidebar /> : '';
+    }
 
+    let footerComponent = !this.state.isFullPageLayout ? <Footer /> : '';
+    return (
       <div className="container-scroller">
-        { navbarComponent }
+        {navbarComponent}
         <div className="container-fluid page-body-wrapper">
-          { sidebarComponent }
+          {sidebarComponent}
           <div className="main-panel">
             <div className="content-wrapper">
-              <AppRoutes/>
+              <AppRoutes />
             </div>
-            { footerComponent }
+            {footerComponent}
           </div>
         </div>
       </div>
@@ -40,25 +47,37 @@ class App extends Component {
   }
 
   onRouteChanged() {
-    console.log("ROUTE CHANGED");
+    console.log('ROUTE CHANGED');
     window.scrollTo(0, 0);
-    const fullPageLayoutRoutes = ['/user-pages/login-1', '/user-pages/login-2', '/user-pages/register-1', '/user-pages/register-2', '/user-pages/lockscreen', '/error-pages/error-404', '/error-pages/error-500', '/general-pages/landing-page'];
-    for ( let i = 0; i < fullPageLayoutRoutes.length; i++ ) {
+    const fullPageLayoutRoutes = [
+      '/user-pages/login-1',
+      '/user-pages/login-2',
+      '/user-pages/register-1',
+      '/user-pages/register-2',
+      '/user-pages/lockscreen',
+      '/error-pages/error-404',
+      '/error-pages/error-500',
+      '/general-pages/landing-page',
+    ];
+    for (let i = 0; i < fullPageLayoutRoutes.length; i++) {
       if (this.props.location.pathname === fullPageLayoutRoutes[i]) {
         this.setState({
-          isFullPageLayout: true
-        })
-        document.querySelector('.page-body-wrapper').classList.add('full-page-wrapper');
+          isFullPageLayout: true,
+        });
+        document
+          .querySelector('.page-body-wrapper')
+          .classList.add('full-page-wrapper');
         break;
       } else {
         this.setState({
-          isFullPageLayout: false
-        })
-        document.querySelector('.page-body-wrapper').classList.remove('full-page-wrapper');
+          isFullPageLayout: false,
+        });
+        document
+          .querySelector('.page-body-wrapper')
+          .classList.remove('full-page-wrapper');
       }
     }
   }
-
 }
 
 export default withRouter(App);

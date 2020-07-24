@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
 
-class Sidebar extends Component {
+class User_Sidebar extends Component {
   state = {};
 
   toggleMenuState(menuState) {
@@ -75,7 +75,7 @@ class Sidebar extends Component {
                     <div className="text-left ml-3">
                       <p className="profile-name">Name....!</p>
                       <small className="designation text-muted text-small">
-                        Admin
+                        User
                       </small>
                       <span className="status-indicator online"></span>
                     </div>
@@ -122,22 +122,34 @@ class Sidebar extends Component {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <button className="btn btn-success btn-block">
+              {/* <button className="btn btn-success btn-block">
                 Create Batch <i className="mdi mdi-plus"></i>
-              </button>
+              </button> */}
             </div>
           </li>
           <li
             className={
-              this.isPathActive('/dashboard2') ? 'nav-item active' : 'nav-item'
+              this.isPathActive('/dashboard') ? 'nav-item active' : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/dashboard2">
+            <Link className="nav-link" to="/dashboard">
               <i className="mdi mdi-television menu-icon"></i>
               <span className="menu-title">Dashboard</span>
             </Link>
           </li>
-          {/* <li
+          <li
+            className={
+              this.isPathActive('/form-elements')
+                ? 'nav-item active'
+                : 'nav-item'
+            }
+          >
+            <Link className="nav-link" to="/form-elements/basic-elements">
+              <i className="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span className="menu-title">Batch</span>
+            </Link>
+          </li>
+          <li
             className={
               this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item'
             }
@@ -198,49 +210,7 @@ class Sidebar extends Component {
                 </li>
               </ul>
             </Collapse>
-          </li> */}
-          <li
-            className={
-              this.isPathActive('/form-elements')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/form-elements/basic-elements">
-              <i className="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span className="menu-title">Supply Path</span>
-            </Link>
-          </li>
-          <li
-            className={
-              this.isPathActive('/tables') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/tables/basic-table">
-              <i className="mdi mdi-table-large menu-icon"></i>
-              <span className="menu-title">Batch</span>
-            </Link>
-          </li>
-          {/* <li
-            className={
-              this.isPathActive('/icons') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/icons/font-awesome">
-              <i className="mdi mdi-account-box-outline menu-icon"></i>
-              <span className="menu-title">Icons</span>
-            </Link>
-          </li> */}
-          <li
-            className={
-              this.isPathActive('/charts') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/charts/chart-js">
-              <i className="mdi mdi-chart-line menu-icon"></i>
-              <span className="menu-title">Report</span>
-            </Link>
-          </li>
+          </li>{' '}
           <li
             className={
               this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item'
@@ -329,8 +299,14 @@ class Sidebar extends Component {
               </ul>
             </Collapse>
           </li>
-          {/* <li className="nav-item">
-            <a className="nav-link" href="http://www.bootstrapdash.com/demo/star-admin-free/react/documentation/documentation.html" rel="noopener noreferrer" target="_blank">
+          {/* /*{' '}
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href="http://www.bootstrapdash.com/demo/star-admin-free/react/documentation/documentation.html"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <i className="mdi mdi-file-outline menu-icon"></i>
               <span className="menu-title">Documentation</span>
             </a>
@@ -363,4 +339,4 @@ class Sidebar extends Component {
   }
 }
 
-export default withRouter(Sidebar);
+export default withRouter(User_Sidebar);

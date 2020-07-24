@@ -1,509 +1,238 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import factory from '../../ethereum/factory';
+import { Modal } from 'react-bootstrap';
+import { Button, Form, FormControl } from 'react-bootstrap';
+import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 export class BasicTable extends Component {
-  state ={
-    list : [],
-    add : '',
-    camp :[]
+
+
+
+   CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <a
+      href=""
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      {children}
+      &#x25bc;
+    </a>
+  ));
+
+  // forwardRef again here!
+  // Dropdown needs access to the DOM of the Menu to measure it
+   CustomMenu = React.forwardRef(
+    ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
+      const [value, setValue] = useState('');
+
+      return (
+        <div
+          ref={ref}
+          style={style}
+          className={className}
+          aria-labelledby={labeledBy}
+        >
+          <FormControl
+            autoFocus
+            className="mx-3 my-2 w-auto"
+            placeholder="Type to filter..."
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+          />
+          <ul className="list-unstyled">
+            {React.Children.toArray(children).filter(
+              (child) =>
+                !value || child.props.children.toLowerCase().startsWith(value)
+            )}
+          </ul>
+        </div>
+      );
+    }
+  );
+
+
+
+
+
+
+  state = {
+    list: [],
+    add: '',
+    camp: [],
+    show: false,
   };
 
+  handleClose = (event) => {
+    event.preventDefault();
+    this.setState({ show: false });
+  };
+  handleShow = (event) => {
+    event.preventDefault();
+    this.setState({ show: true });
+  };
 
-  dte(index){
-   let dd =   this.state.camp[index]
-   if(dd!= null){
-     const milliseconds = dd['5'][0] * 1000 // 1575909015000
-     const dateObject = new Date(milliseconds)
-     const humanDateFormat = dateObject.toLocaleString()
-     const ret = humanDateFormat.slice(0, 9);
-     return(ret);
- }
- }
+  dte(index) {
+    let dd = this.state.camp[index];
+    if (dd != null) {
+      const milliseconds = dd['5'][0] * 1000; // 1575909015000
+      const dateObject = new Date(milliseconds);
+      const humanDateFormat = dateObject.toLocaleString();
+      const ret = humanDateFormat.slice(0, 9);
+      return ret;
+    }
+  }
 
-   deal(index){
-    let dd =   this.state.camp[index]
-    if(dd!= null){
-    return(dd['0']);
+  deal(index) {
+    let dd = this.state.camp[index];
+    if (dd != null) {
+      return dd['0'];
+    }
   }
+  owner(index) {
+    let dd = this.state.camp[index];
+    if (dd != null) {
+      return dd['1'];
+    }
   }
-  owner(index){
-   let dd =   this.state.camp[index]
-   if(dd!= null){
-   return(dd['1']);
- }
-}
- dest(index){
-  let dd =   this.state.camp[index]
-  if(dd!= null){
-  return(dd['3']);
-}
-}
-  async componentDidMount(){
+  dest(index) {
+    let dd = this.state.camp[index];
+    if (dd != null) {
+      return dd['3'];
+    }
+  }
+  async componentDidMount() {
     try {
-     const accounts =await web3.eth.getAccounts();
-     const campaigns = await factory.methods.getDeployedBales(accounts[0]).call();
-     this.setState({list: campaigns});
-     this.setState({add : accounts[0]});
-     console.log("@@@@@@@@@@@@2",campaigns[0]);
+      const accounts = await web3.eth.getAccounts();
+      const campaigns = await factory.methods
+        .getDeployedBales(accounts[0])
+        .call();
+      this.setState({ list: campaigns });
+      this.setState({ add: accounts[0] });
+      console.log('@@@@@@@@@@@@2', campaigns[0]);
 
-     this.state.list.map(async (listValue, index) =>{
-       console.log("index", listValue)
-       const campaign = await Campaign(listValue);
-      const summary = await campaign.methods.getSummary().call();
-      console.log("summary",listValue, summary)//add
-      let temp = [...this.state.camp, summary]
-      await this.setState({ camp: temp });
-
-    });
-
-   }
-    catch(err){
-     this.setState({errorMessage: err.message});
-   }
- }
+      this.state.list.map(async (listValue, index) => {
+        console.log('index', listValue);
+        const campaign = await Campaign(listValue);
+        const summary = await campaign.methods.getSummary().call();
+        console.log('summary', listValue, summary); //add
+        let temp = [...this.state.camp, summary];
+        await this.setState({ camp: temp });
+      });
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
+  }
   render() {
     return (
       <div>
-        <div className="page-header">
-          <h3 className="page-title"> Basic Tables </h3>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="!#" onClick={event => event.preventDefault()}>Tables</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Basic tables</li>
-            </ol>
-          </nav>
-        </div>
-        <div className="row">
-          <div className="col-lg-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Basic Table</h4>
-                <p className="card-description"> Add className <code>.table</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Profile</th>
-                        <th>VatNo.</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>53275531</td>
-                        <td>12 May 2017</td>
-                        <td><label className="badge badge-danger">Pending</label></td>
-                      </tr>
-                      <tr>
-                        <td>Messsy</td>
-                        <td>53275532</td>
-                        <td>15 May 2017</td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                      <tr>
-                        <td>John</td>
-                        <td>53275533</td>
-                        <td>14 May 2017</td>
-                        <td><label className="badge badge-info">Fixed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Peter</td>
-                        <td>53275534</td>
-                        <td>16 May 2017</td>
-                        <td><label className="badge badge-success">Completed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Dave</td>
-                        <td>53275535</td>
-                        <td>20 May 2017</td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Hoverable Table</h4>
-                <p className="card-description"> Add className <code>.table-hover</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Product</th>
-                        <th>Sale</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>Photoshop</td>
-                        <td className="text-danger"> 28.76% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-danger">Pending</label></td>
-                      </tr>
-                      <tr>
-                        <td>Messsy</td>
-                        <td>Flash</td>
-                        <td className="text-danger"> 21.06% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                      <tr>
-                        <td>John</td>
-                        <td>Premier</td>
-                        <td className="text-danger"> 35.00% <i className="mdi mdi-arrow-down"></i></td>
-                        <td><label className="badge badge-info">Fixed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Peter</td>
-                        <td>After effects</td>
-                        <td className="text-success"> 82.00% <i className="mdi mdi-arrow-up"></i></td>
-                        <td><label className="badge badge-success">Completed</label></td>
-                      </tr>
-                      <tr>
-                        <td>Dave</td>
-                        <td>53275535</td>
-                        <td className="text-success"> 98.05% <i className="mdi mdi-arrow-up"></i></td>
-                        <td><label className="badge badge-warning">In progress</label></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Striped Table</h4>
-                <p className="card-description"> Add className <code>.table-striped</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th> Contract Address </th>
-                        <th> Owner  </th>
-                        <th> Details </th>
-                        <th> Date of Creation </th>
-                        <th> Destination </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.list.map(( listValue, index ) => {
-                          return (
-                            <tr>
-                              <td className="py-1">
-                                {listValue}
-                              </td>
-                              <td>{this.owner(index)} </td>
-                              <td>
-                                {this.deal(index)}
-                              </td>
-                              <td> {this.dte(index) } </td>
-                              <td> {""+this.dest(index)} </td>
-                            </tr>
-                          );
-                        })}
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face2.jpg")} alt="user icon" />
-                        </td>
-                        <td> Messsy Adam </td>
-                        <td>
-                          <ProgressBar variant="danger" now={75} />
-                        </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face3.jpg")} alt="user icon" />
-                        </td>
-                        <td> John Richards </td>
-                        <td>
-                          <ProgressBar variant="warning" now={90} />
-                        </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face4.jpg")} alt="user icon" />
-                        </td>
-                        <td> Peter Meggik </td>
-                        <td>
-                          <ProgressBar variant="primary" now={50} />
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face5.jpg")} alt="user icon" />
-                        </td>
-                        <td> Edward </td>
-                        <td>
-                          <ProgressBar variant="danger" now={60} />
-                        </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face6.jpg")} alt="user icon" />
-                        </td>
-                        <td> John Doe </td>
-                        <td>
-                          <ProgressBar variant="info" now={65} />
-                        </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>{this.deal()}
-                      <tr>
-                        <td className="py-1">
-                          <img src={require("../../assets/images/faces/face7.jpg")} alt="user icon" />
-                        </td>
-                        <td> Henry Tom </td>
-                        <td>
-                          <ProgressBar variant="warning" now={20} />
-                        </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Bordered table</h4>
-                <p className="card-description"> Add className <code>.table-bordered</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Progress </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td>
-                          <ProgressBar variant="success" now={25} />
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td>
-                          <ProgressBar variant="danger" now={75} />
-                        </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td>
-                          <ProgressBar variant="warning" now={90} />
-                        </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td>
-                          <ProgressBar variant="primary" now={50} />
-                        </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td>
-                          <ProgressBar variant="danger" now={35} />
-                        </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 6 </td>
-                        <td> John Doe </td>
-                        <td>
-                          <ProgressBar variant="info" now={65} />
-                        </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 7 </td>
-                        <td> Henry Tom </td>
-                        <td>
-                        <ProgressBar now={60} />
-                          <ProgressBar variant="warning" now={20} />
-                        </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Inverse table</h4>
-                <p className="card-description"> Add className <code>.table-dark</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-dark">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 6 </td>
-                        <td> John Doe </td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>
-                      <tr>
-                        <td> 7 </td>
-                        <td> Henry Tom </td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-12 stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Table with contextual classNames</h4>
-                <p className="card-description"> Add className <code>.table-&#123;color&#125;</code>
-                </p>
-                <div className="table-responsive">
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Product </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="table-info">
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td> Photoshop </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-warning">
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td> Flash </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr className="table-danger">
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td> Premeire </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr className="table-success">
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td> After effects </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+
+        <div className="col-lg-12 grid-margin stretch-card">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title">
+                <span>
+                  <h1>Batch Overview</h1>
+                </span>
+              </h2>
+              {/* <p className="card-description">
+                {' '}
+                Add className <code>.table-striped</code>
+              </p> */}
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th> Contract Address </th>
+                      <th> Owner </th>
+                      <th> Details </th>
+                      <th> Date of Creation </th>
+                      <th> Destination </th>
+                      <th> Finalize </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.list.map((listValue, index) => {
+                      return (
+                        <tr>
+                          <td className="py-1">{listValue}</td>
+                          <td>{this.owner(index)} </td>
+                          <td>{this.deal(index)}</td>
+                          <td> {this.dte(index)} </td>
+                          <td> {'' + this.dest(index)} </td>
+                          <td>
+                            <Button variant="primary" onClick={this.handleShow}>
+                              Transfer
+                            </Button>
+
+                            <Modal
+                              show={this.show}
+                              onHide={this.handleClose}
+                              body
+                              outline
+                              color="primary"
+                              className="border"
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title>Transfer Ownerships</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <Dropdown>
+                                  <Dropdown.Toggle
+                                    as={this.CustomToggle}
+                                    id="dropdown-custom-components"
+                                  >
+                                    Select address for Transfer Ownerships
+                                  </Dropdown.Toggle>
+
+                                  <Dropdown.Menu as={this.CustomMenu}>
+                                    <Dropdown.Item eventKey="1">Red</Dropdown.Item>
+                                    <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
+                                    <Dropdown.Item eventKey="3" active>
+                                      Orange
+                                    </Dropdown.Item>
+                                    <Dropdown.Item eventKey="1">
+                                      Red-Orange
+                                    </Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                  variant="secondary"
+                                  onClick={this.handleClose}
+                                >
+                                  Close
+                                </Button>
+                                <Button
+                                  variant="primary"
+                                  onClick={this.handleClose}
+                                >
+                                  Save Changes
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default BasicTable
+export default BasicTable;
