@@ -37,6 +37,7 @@ class Sidebar extends Component {
       { path: '/tables', state: 'tablesMenuOpen' },
       { path: '/icons', state: 'iconsMenuOpen' },
       { path: '/charts', state: 'chartsMenuOpen' },
+
       { path: '/user-pages', state: 'userPagesMenuOpen' },
     ];
 
@@ -86,19 +87,7 @@ class Sidebar extends Component {
                     className="dropdown-item p-0 preview-item d-flex align-items-center"
                     href="!#"
                     onClick={(evt) => evt.preventDefault()}
-                  >
-                    {/* <div className="d-flex">
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center">
-                        <i className="mdi mdi-bookmark-plus-outline mr-0"></i>
-                      </div>
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
-                        <i className="mdi mdi-account-outline mr-0"></i>
-                      </div>
-                      <div className="py-3 px-4 d-flex align-items-center justify-content-center">
-                        <i className="mdi mdi-alarm-check mr-0"></i>
-                      </div>
-                    </div> */}
-                  </Dropdown.Item>
+                  ></Dropdown.Item>
                   <Dropdown.Item
                     className="dropdown-item preview-item d-flex align-items-center text-small"
                     onClick={(evt) => evt.preventDefault()}
@@ -122,9 +111,6 @@ class Sidebar extends Component {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <button className="btn btn-success btn-block">
-                Create Batch <i className="mdi mdi-plus"></i>
-              </button>
             </div>
           </li>
           <li
@@ -139,66 +125,26 @@ class Sidebar extends Component {
           </li>
           {/* <li
             className={
-              this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item'
+              this.isPathActive('/user-pages/create-batch')
+                ? 'nav-item active'
+                : 'nav-item'
             }
           >
-            <div
-              className={
-                this.state.basicUiMenuOpen
-                  ? 'nav-link menu-expanded'
-                  : 'nav-link'
-              }
-              onClick={() => this.toggleMenuState('basicUiMenuOpen')}
-              data-toggle="collapse"
-            >
-              <i className="mdi mdi-crosshairs-gps menu-icon"></i>
-              <span className="menu-title">Basic UI Elements</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={this.state.basicUiMenuOpen}>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/basic-ui/buttons')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/basic-ui/buttons"
-                  >
-                    Buttons
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/basic-ui/dropdowns')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/basic-ui/dropdowns"
-                  >
-                    Dropdowns
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/basic-ui/typography')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/basic-ui/typography"
-                  >
-                    Typography
-                  </Link>
-                </li>
-              </ul>
-            </Collapse>
+            <Link className="nav-link" to="/user-pages/create-batch">
+              <i className="fa fa-pencil menu-icon"></i>
+              <span className="menu-title">Create Batch</span>
+            </Link>
           </li> */}
+          <li
+            className={
+              this.isPathActive('/tables') ? 'nav-item active' : 'nav-item'
+            }
+          >
+            <Link className="nav-link" to="/tables/overview">
+              <i className="mdi mdi-table-large menu-icon"></i>
+              <span className="menu-title">Batch</span>
+            </Link>
+          </li>
           <li
             className={
               this.isPathActive('/form-elements')
@@ -206,31 +152,38 @@ class Sidebar extends Component {
                 : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/form-elements/basic-elements">
+            <Link className="nav-link" to="/form-elements/batch">
               <i className="mdi mdi-format-list-bulleted menu-icon"></i>
               <span className="menu-title">Supply Path</span>
             </Link>
           </li>
-          <li
-            className={
-              this.isPathActive('/tables') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/tables/basic-table">
-              <i className="mdi mdi-table-large menu-icon"></i>
-              <span className="menu-title">Batch</span>
-            </Link>
-          </li>
+
           {/* <li
             className={
-              this.isPathActive('/icons') ? 'nav-item active' : 'nav-item'
+              this.isPathActive('/user-pages/create-stk')
+                ? 'nav-item active'
+                : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/icons/font-awesome">
-              <i className="mdi mdi-account-box-outline menu-icon"></i>
-              <span className="menu-title">Icons</span>
+            <Link className="nav-link" to="/user-pages/create-stk">
+              <i className="fa fa-users menu-icon"></i>
+              <span className="menu-title">Create Stakeholders</span>
             </Link>
           </li> */}
+
+          <li
+            className={
+              this.isPathActive('/user-pages/verify')
+                ? 'nav-item active'
+                : 'nav-item'
+            }
+          >
+            <Link className="nav-link" to="/user-pages/verify">
+              <i className="fa fa-check menu-icon"></i>
+              <span className="menu-title">User Verification</span>
+            </Link>
+          </li>
+
           <li
             className={
               this.isPathActive('/charts') ? 'nav-item active' : 'nav-item'
@@ -241,100 +194,6 @@ class Sidebar extends Component {
               <span className="menu-title">Report</span>
             </Link>
           </li>
-          <li
-            className={
-              this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <div
-              className={
-                this.state.userPagesMenuOpen
-                  ? 'nav-link menu-expanded'
-                  : 'nav-link'
-              }
-              onClick={() => this.toggleMenuState('userPagesMenuOpen')}
-              data-toggle="collapse"
-            >
-              <i className="mdi mdi-lock-outline menu-icon"></i>
-              <span className="menu-title">User Pages</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={this.state.userPagesMenuOpen}>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/user-pages/blank-page')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/user-pages/blank-page"
-                  >
-                    Create Batch
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/user-pages/login-1')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/user-pages/login-1"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/user-pages/register-1')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/user-pages/register-1"
-                  >
-                    Register
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/user-pages/error-404')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/user-pages/error-404"
-                  >
-                    Create Stakeholders
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  {' '}
-                  <Link
-                    className={
-                      this.isPathActive('/user-pages/error-500')
-                        ? 'nav-link active'
-                        : 'nav-link'
-                    }
-                    to="/user-pages/error-500"
-                  >
-                    Verification
-                  </Link>
-                </li>
-              </ul>
-            </Collapse>
-          </li>
-          {/* <li className="nav-item">
-            <a className="nav-link" href="http://www.bootstrapdash.com/demo/star-admin-free/react/documentation/documentation.html" rel="noopener noreferrer" target="_blank">
-              <i className="mdi mdi-file-outline menu-icon"></i>
-              <span className="menu-title">Documentation</span>
-            </a>
-          </li> */}
         </ul>
       </nav>
     );

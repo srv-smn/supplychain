@@ -3,26 +3,26 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Spinner from '../app/shared/Spinner';
 
-const Dashboard = lazy(() => import('./dashboard/Dashboard'));
+const Dashboard2 = lazy(() => import('./dashboard/Dashboard2'));
 
 const BasicElements = lazy(() => import('./form-elements/batch'));
 
 const BasicTable = lazy(() => import('./tables/overview'));
+const Verification = lazy(() => import('./user-pages/verify'));
 
 const FontAwesome = lazy(() => import('./icons/FontAwesome'));
 
 const ChartJs = lazy(() => import('./charts/ChartJs'));
 
-const Newbatch = lazy(() => import('./user-pages/new-batch'));
-const Cbatch = lazy(() => import('./user-pages/create-batch'));
-
-//User routing
+const Newbatch = lazy(() => import('./user-pages/create-batch'));
+const CreateStk = lazy(() => import('./user-pages/create-stk'));
+// Admin Routing
 class AppRoutes extends Component {
   render() {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard2" component={Dashboard2} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />
 
@@ -32,11 +32,12 @@ class AppRoutes extends Component {
 
           <Route path="/charts/chart-js" component={ChartJs} />
 
-          <Route path="/user-pages/create-batch" component={Cbatch} />
+          <Route path="/user-pages/create-stk" component={CreateStk} />
 
-          <Route path="/user-pages/new-batch" component={Newbatch} />
+          <Route path="/user-pages/create-batch" component={Newbatch} />
+          <Route path="/user-pages/verify" component={Verification} />
 
-          <Redirect to="/dashboard" />
+          <Redirect to="/dashboard2" />
         </Switch>
       </Suspense>
     );

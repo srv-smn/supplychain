@@ -37,7 +37,6 @@ class User_Sidebar extends Component {
       { path: '/tables', state: 'tablesMenuOpen' },
       { path: '/icons', state: 'iconsMenuOpen' },
       { path: '/charts', state: 'chartsMenuOpen' },
-
       { path: '/user-pages', state: 'userPagesMenuOpen' },
     ];
 
@@ -138,20 +137,6 @@ class User_Sidebar extends Component {
               <span className="menu-title">Dashboard</span>
             </Link>
           </li>
-
-          <li
-            className={
-              this.isPathActive('/user-pages/create-batch')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/user-pages/create-batch">
-              <i className="fa fa-pencil menu-icon"></i>
-              <span className="menu-title">Create Batch</span>
-            </Link>
-          </li>
-
           <li
             className={
               this.isPathActive('/form-elements')
@@ -159,24 +144,173 @@ class User_Sidebar extends Component {
                 : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/form-elements/batch">
+            <Link className="nav-link" to="/form-elements/basic-elements">
               <i className="mdi mdi-format-list-bulleted menu-icon"></i>
               <span className="menu-title">Batch</span>
             </Link>
           </li>
-
           <li
             className={
-              this.isPathActive('/user-pages/new-batch')
-                ? 'nav-item active'
-                : 'nav-item'
+              this.isPathActive('/basic-ui') ? 'nav-item active' : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/user-pages/new-batch">
-              <i className="fa fa-archive menu-icon"></i>
-              <span className="menu-title">New Batches</span>
-            </Link>
+            <div
+              className={
+                this.state.basicUiMenuOpen
+                  ? 'nav-link menu-expanded'
+                  : 'nav-link'
+              }
+              onClick={() => this.toggleMenuState('basicUiMenuOpen')}
+              data-toggle="collapse"
+            >
+              <i className="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span className="menu-title">Basic UI Elements</span>
+              <i className="menu-arrow"></i>
+            </div>
+            <Collapse in={this.state.basicUiMenuOpen}>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/basic-ui/buttons')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/basic-ui/buttons"
+                  >
+                    Buttons
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/basic-ui/dropdowns')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/basic-ui/dropdowns"
+                  >
+                    Dropdowns
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/basic-ui/typography')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/basic-ui/typography"
+                  >
+                    Typography
+                  </Link>
+                </li>
+              </ul>
+            </Collapse>
+          </li>{' '}
+          <li
+            className={
+              this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item'
+            }
+          >
+            <div
+              className={
+                this.state.userPagesMenuOpen
+                  ? 'nav-link menu-expanded'
+                  : 'nav-link'
+              }
+              onClick={() => this.toggleMenuState('userPagesMenuOpen')}
+              data-toggle="collapse"
+            >
+              <i className="mdi mdi-lock-outline menu-icon"></i>
+              <span className="menu-title">User Pages</span>
+              <i className="menu-arrow"></i>
+            </div>
+            <Collapse in={this.state.userPagesMenuOpen}>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/user-pages/blank-page')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/user-pages/blank-page"
+                  >
+                    Create Batch
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/user-pages/login-1')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/user-pages/login-1"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/user-pages/register-1')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/user-pages/register-1"
+                  >
+                    Register
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/user-pages/error-404')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/user-pages/error-404"
+                  >
+                    Create Stakeholders
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {' '}
+                  <Link
+                    className={
+                      this.isPathActive('/user-pages/error-500')
+                        ? 'nav-link active'
+                        : 'nav-link'
+                    }
+                    to="/user-pages/error-500"
+                  >
+                    Verification
+                  </Link>
+                </li>
+              </ul>
+            </Collapse>
           </li>
+          {/* /*{' '}
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href="http://www.bootstrapdash.com/demo/star-admin-free/react/documentation/documentation.html"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i className="mdi mdi-file-outline menu-icon"></i>
+              <span className="menu-title">Documentation</span>
+            </a>
+          </li> */}
         </ul>
       </nav>
     );

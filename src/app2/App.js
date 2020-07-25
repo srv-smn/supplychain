@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './App.scss';
 import AppRoutes from './AppRoutes';
-import AppRoute from './AppRoute';
 import Navbar from './shared/Navbar';
 import Sidebar from './shared/Sidebar';
 import User_Sidebar from './shared/User_Sidebar';
@@ -16,16 +15,12 @@ class App extends Component {
   }
   render() {
     let navbarComponent = !this.state.isFullPageLayout ? <Navbar /> : '';
-    var a = 2;
+    var a = 1;
     let sidebarComponent;
-    let appRoute
-    if (a === 2) {
-      appRoute = !this.state.isFullPageLayout ? <AppRoutes /> : '';
+    if (a === 1) {
       sidebarComponent = !this.state.isFullPageLayout ? <User_Sidebar /> : '';
     } else {
-      appRoute = !this.state.isFullPageLayout ? <AppRoute /> : '';
       sidebarComponent = !this.state.isFullPageLayout ? <Sidebar /> : '';
-
     }
 
     let footerComponent = !this.state.isFullPageLayout ? <Footer /> : '';
@@ -36,7 +31,7 @@ class App extends Component {
           {sidebarComponent}
           <div className="main-panel">
             <div className="content-wrapper">
-              {appRoute}
+              <AppRoutes />
             </div>
             {footerComponent}
           </div>
