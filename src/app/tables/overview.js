@@ -4,7 +4,7 @@ import factory from '../../ethereum/factory';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import { Modal } from 'react-bootstrap';
-import { Button, Form, FormControl } from 'react-bootstrap';
+import { Button, Form, FormControl,  InputGroup } from 'react-bootstrap';
 import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 
@@ -59,16 +59,27 @@ export class BasicTable extends Component {
     add: '',
     camp: [],
     show: false,
-    validated: []
+    validated: [],
+    transfer: ''
   };
+
+  onSubmit = async (event,contractAdd) =>{
+    try {
+    const campaign = await Campaign(contractAdd);
+    await campaign.methods.transfer_ownership(this.state.transfer).send({ from: this.state.add});
+    window.location.reload();
+  }
+   catch(err){
+
+  }
+  };
+
 
 
   handleClose = (event) => {
-    event.preventDefault();
     this.setState({ show: false });
   };
   handleShow = (event) => {
-    event.preventDefault();
     this.setState({ show: true });
   };
 
@@ -186,29 +197,21 @@ export class BasicTable extends Component {
                                 <Modal.Title>Transfer Ownerships</Modal.Title>
                               </Modal.Header>
                               <Modal.Body>
-                                <Dropdown>
-                                  <Dropdown.Toggle
-                                    as={CustomToggle}
-                                    id="dropdown-custom-components"
-                                  >
-                                    Select address for Transfer Ownerships
-                                  </Dropdown.Toggle>
-
-                                  <Dropdown.Menu as={CustomMenu}>
-                                    <Dropdown.Item eventKey="1">
-                                      Red
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="2">
-                                      Blue
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="3" active>
-                                      Orange
-                                    </Dropdown.Item>
-                                    <Dropdown.Item eventKey="1">
-                                      Red-Orange
-                                    </Dropdown.Item>
-                                  </Dropdown.Menu>
-                                </Dropdown>
+                              <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                  <InputGroup.Text id="basic-addon1">
+                                    User-ID
+                                  </InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                  placeholder="User"
+                                  aria-label="Username"
+                                  aria-describedby="basic-addon1"
+                                  value = {this.state.transfer}
+                                  onChange = {event =>
+                                    this.setState({transfer: event.target.value})}
+                                />
+                              </InputGroup>
                               </Modal.Body>
                               <Modal.Footer>
                                 <Button
@@ -219,7 +222,7 @@ export class BasicTable extends Component {
                                 </Button>
                                 <Button
                                   variant="primary"
-                                  onClick={this.handleClose}
+                                  onClick={(e) =>this.onSubmit(e,listValue)}
                                 >
                                   Save Changes
                                 </Button>
