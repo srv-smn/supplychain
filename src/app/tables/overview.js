@@ -7,6 +7,7 @@ import { Modal } from 'react-bootstrap';
 import { Button, Form, FormControl,  InputGroup } from 'react-bootstrap';
 import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {Link} from 'react-router-dom';
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -128,7 +129,7 @@ export class BasicTable extends Component {
       this.setState({ add: accounts[0] });
       console.log('@@@@@@@@@@@@2', campaigns[0]);
 
-      this.state.list.map(async (listValue, index) => {
+         this.state.list.map(async (listValue, index) => {
         console.log('index', listValue);
         const campaign = await Campaign(listValue);
         const res = await campaign.methods.validated(this.state.add).call();
@@ -175,7 +176,9 @@ export class BasicTable extends Component {
                       if(this.ifValidated(index))
                       return (
                         <tr>
+                        <Link to = {`/${listValue}`}>
                           <td className="py-1">{listValue}</td>
+                        </Link>
                           <td>{this.owner(index)} </td>
                           <td>{this.deal(index)}</td>
                           <td> {this.dte(index)} </td>

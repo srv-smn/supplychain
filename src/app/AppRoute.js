@@ -22,6 +22,7 @@ class AppRoutes extends Component {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
+    
           <Route exact path="/dashboard2" component={Dashboard2} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />

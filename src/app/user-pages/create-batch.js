@@ -18,7 +18,8 @@ export class BlankPage extends Component {
     const details = this.state.size +" "+this.state.grade+" grade  "+this.state.color ;
     const accounts =await web3.eth.getAccounts();
     console.log("acc",accounts[0]);
-   await factory.methods.createBales(details, this.state.mainadd).send({ from: accounts[0]});
+    await factory.methods.createBales(details, this.state.mainadd).send({ from: accounts[0]});
+
  }
   catch(err){
    //this.setState({errorMessage: err.message});

@@ -2,20 +2,75 @@ import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { Card } from 'reactstrap';
+import Campaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
+import factory from '../../ethereum/factory';
+import { Modal } from 'react-bootstrap';
 
 export class BasicElements extends Component {
   state = {
     startDate: new Date(),
+    details:'',
+    owner:'',
+    origin:'',
+    destination:false,
+    ownerships:[],
+    dates:[],
+    ownersdet:[],
   };
+
+
+  dte(index) {
+    let dd = this.state.dates[index];
+    if (dd != null) {
+      const milliseconds = dd * 1000; // 1575909015000
+      const dateObject = new Date(milliseconds);
+      const humanDateFormat = dateObject.toLocaleString();
+      const ret = humanDateFormat;
+      return ret;
+    }
+  }
+   location(addr) {
+     const stakeholder = this.state.ownersdet[addr]
+      console.log("ye dekho",stakeholder)
+      if (stakeholder != null){
+      const dt = stakeholder[1];
+      return dt;
+    }
+  }
+
 
   handleChange = (date) => {
     this.setState({
-      startDate: date,
+      startDate: date
     });
   };
+
+  async componentDidMount() {
+    try {
+      await window.ethereum.enable();
+      const campaign = await Campaign('0x5da29eC36B02e2519d9893b44da79aAa645DF514');
+      const summary = await campaign.methods.getSummary().call();
+      console.log("Summary",summary);
+      await this.setState({ details: summary[0] ,owner: summary[1],origin: summary[2] ,destination: summary[3],ownerships: summary[4] ,dates: summary[5]});
+
+      await this.state.list.ownerships(async (listValue, index) => {
+        let det = await factory.methods.stakeholders(listValue).call();
+        console.log("owners det",det);
+        let temp = [...this.state.ownersdet, det];
+        await this.setState({ ownersdet: temp });
+      });
+
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
+  }
+
   render() {
     return (
       <div>
+      <h1>{}</h1>
         <div className="row proBanner"></div>
         <div className="row">
           <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
@@ -26,10 +81,10 @@ export class BasicElements extends Component {
                     <i className="mdi mdi-cube text-danger icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">My Address</p>
+                    <p className="mb-0 text-right text-dark">Batch Address</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
-                        {this.state.addr}
+                        0x5da29eC36B02e2519d9893b44da79aAa645DF514
                       </h3>
                     </div>
                   </div>
@@ -52,10 +107,10 @@ export class BasicElements extends Component {
                     <i className="mdi mdi-receipt text-warning icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">ID</p>
+                    <p className="mb-0 text-right text-dark">Details</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
-                        {this.state.uid}
+                        {this.state.details}
                       </h3>
                     </div>
                   </div>
@@ -78,10 +133,10 @@ export class BasicElements extends Component {
                     <i className="mdi mdi-poll-box text-success icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Name</p>
+                    <p className="mb-0 text-right text-dark">Owner</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
-                        {this.state.name}
+                        {this.state.owner}
                       </h3>
                     </div>
                   </div>
@@ -102,10 +157,10 @@ export class BasicElements extends Component {
                     <i className="mdi mdi-account-box-multiple text-info icon-lg"></i>
                   </div>
                   <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Location</p>
+                    <p className="mb-0 text-right text-dark">Origin</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
-                        {this.state.location}
+                        {this.state.origin}
                       </h3>
                     </div>
                   </div>
@@ -119,283 +174,62 @@ export class BasicElements extends Component {
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="white-box">
-              <ul class="timeline">
-                <li>
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-check"></i>
-                  </div>
-                  <div class="timeline-panel" id="cultivationSection">
-                    <div class="timeline-heading">
-                      <h4 class="timeline-title">Destination</h4>
-                      <p>
-                        <small class="text-muted text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span class="activityQrCode"></span>
+
+          {this.state.ownerships.map((listValue, index) => {
+            return(
+          <div class="row">
+            <div class="col-md-12">
+              <div class="white-box">
+                <ul class="timeline">
+                  <li>
+                    <div class="timeline-badge danger">
+                      <i class="fa fa-check"></i>
                     </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
+                    <div class="timeline-panel" id="cultivationSection">
+                      <div class="timeline-heading">
+                        <h4 class="timeline-title">Destination</h4>
+                        <p>
+                          <small class="text-muted text-success activityDateTime"></small>{' '}
+                        </p>
+                        <span class="activityQrCode"></span>
                       </div>
-                    </Card>
-                  </div>
-                </li>
-                <li class="timeline-inverted">
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div className="timeline-panel" id="farmInspectionSection">
-                    <div className="timeline-heading">
-                      <p>
-                        <small className="text-muted text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span className="activityQrCode"></span>
+                      <Card>
+                        <div class="timeline-body">
+                          <table class="table activityData table-responsive">
+                            <tr>
+                              <td colspan="2">
+                                <p>Current Owner: {listValue}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <p>Origin:{this.state.origin}</p>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td colspan="2">
+                                <p>Date and Time: {this.dte(index)}</p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <p>Location: {this.location(index)}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </Card>
                     </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </Card>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div class="timeline-panel" id="harvesterSection">
-                    <div class="timeline-heading">
-                      {/* <h4 class="timeline-title">Harvester</h4> */}
-                      <p>
-                        <small class="text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span class="activityQrCode"></span>
-                    </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </Card>
-                  </div>
-                </li>
-                <li class="timeline-inverted">
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div class="timeline-panel" id="exporterSection">
-                    <div class="timeline-heading">
-                      <h4 class="timeline-title">Exporter</h4>
-                      <p>
-                        <small class="text-muted text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span class="activityQrCode"></span>
-                    </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </Card>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div class="timeline-panel" id="importerSection">
-                    <div class="timeline-heading">
-                      {/* <h4 class="timeline-title">Importer</h4> */}
-                      <p>
-                        <small class="text-muted text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span class="activityQrCode"></span>
-                    </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </Card>
-                  </div>
-                </li>
-                <li class="timeline-inverted">
-                  <div class="timeline-badge danger">
-                    <i class="fa fa-times"></i>
-                  </div>
-                  <div class="timeline-panel" id="processorSection">
-                    <div class="timeline-heading">
-                      <h4 class="timeline-title">Origin</h4>
-                      <p>
-                        <small class="text-muted text-success activityDateTime"></small>{' '}
-                      </p>
-                      <span class="activityQrCode"></span>
-                    </div>
-                    <Card>
-                      <div class="timeline-body">
-                        <table class="table activityData table-responsive">
-                          <tr>
-                            <td colspan="2">
-                              <p>Current Owner:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Origin:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Destination:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Date and Time:</p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <p>Location:</p>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    </Card>
-                  </div>
-                </li>
-              </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        );
+          })}
+
+
       </div>
     );
   }

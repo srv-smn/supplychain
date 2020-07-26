@@ -16,7 +16,7 @@ class App extends Component {
   }
   render() {
     let navbarComponent = !this.state.isFullPageLayout ? <Navbar /> : '';
-    var a = 2;
+    var a = 1;
     let sidebarComponent;
     let appRoute
     if (a === 2) {

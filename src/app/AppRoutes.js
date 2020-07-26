@@ -15,14 +15,14 @@ const ChartJs = lazy(() => import('./charts/ChartJs'));
 
 const Newbatch = lazy(() => import('./user-pages/new-batch'));
 const Cbatch = lazy(() => import('./user-pages/create-batch'));
-
+const Demo = lazy(() => import('./form-elements/batch'));
 //User routing
 class AppRoutes extends Component {
   render() {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />
 
@@ -35,6 +35,7 @@ class AppRoutes extends Component {
           <Route path="/user-pages/create-batch" component={Cbatch} />
 
           <Route path="/user-pages/new-batch" component={Newbatch} />
+          <Route exact path="/:id" component={Demo} />
 
           <Redirect to="/dashboard" />
         </Switch>

@@ -59,6 +59,7 @@ class CampaignIndex extends Component {
   render() {
     return (
       <div>
+      <h1></h1>
         <Form onSubmit={this.onSubmitt}>
           <Button primary>Show Details</Button>
         </Form>
