@@ -135,9 +135,9 @@ export class BasicTable extends Component {
         const res = await campaign.methods.validated(this.state.add).call();
         const summary = await campaign.methods.getSummary().call();
         console.log('summary', listValue, summary); //add
-        let temp = [...this.state.camp, summary];
+        let temp = [summary, ...this.state.camp];
         await this.setState({ camp: temp });
-        let fortemp = [...this.state.validated, res];
+        let fortemp = [res, ...this.state.validated];
         await this.setState({ validated: fortemp });
       });
     } catch (err) {

@@ -9,6 +9,7 @@ import { Modal } from 'react-bootstrap';
 
 export class BasicElements extends Component {
   state = {
+    balesAddr: '',
     startDate: new Date(),
     details:'',
     owner:'',
@@ -38,7 +39,9 @@ export class BasicElements extends Component {
       return dt;
     }
   }
-
+constructor(props){
+  super(props);
+}
 
   handleChange = (date) => {
     this.setState({
@@ -48,13 +51,15 @@ export class BasicElements extends Component {
 
   async componentDidMount() {
     try {
+      const {match: {params}} = this.props
+      this.setState({balesAddr: params.id})
       await window.ethereum.enable();
-      const campaign = await Campaign('0x5da29eC36B02e2519d9893b44da79aAa645DF514');
+      const campaign = await Campaign(params.id);
       const summary = await campaign.methods.getSummary().call();
       console.log("Summary",summary);
       await this.setState({ details: summary[0] ,owner: summary[1],origin: summary[2] ,destination: summary[3],ownerships: summary[4] ,dates: summary[5]});
 
-      await this.state.list.ownerships(async (listValue, index) => {
+       this.state.ownerships.map(async (listValue, index) => {
         let det = await factory.methods.stakeholders(listValue).call();
         console.log("owners det",det);
         let temp = [...this.state.ownersdet, det];
@@ -70,6 +75,7 @@ export class BasicElements extends Component {
   render() {
     return (
       <div>
+
       <h1>{}</h1>
         <div className="row proBanner"></div>
         <div className="row">
@@ -84,7 +90,7 @@ export class BasicElements extends Component {
                     <p className="mb-0 text-right text-dark">Batch Address</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
-                        0x5da29eC36B02e2519d9893b44da79aAa645DF514
+                        {this.state.balesAddr}
                       </h3>
                     </div>
                   </div>
