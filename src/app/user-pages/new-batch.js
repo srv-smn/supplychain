@@ -101,11 +101,11 @@ export class Error404 extends Component {
                   <table className="table product-overview">
                     <thead>
                       <tr>
+                        <th>Address</th>
                         <th>Details</th>
-                        <th>Date of Creation</th>
                         {/* <th>Contact No.</th>
               <th>Role</th> */}
-                        <th>Status</th>
+                        <th>Date of Creation </th>
                       </tr>
                     </thead>
                     <tbody>

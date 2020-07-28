@@ -118,14 +118,7 @@ export class BasicTable extends Component {
       return dd['3'];
     }
   }
-  isOwner(indexValue, index){
-    let res = false;
-    if(this.owner(index) == this.state.add)
-    {
-      res = true ;
-    }
-    return res;
-  }
+
   async componentDidMount() {
     try {
       await window.ethereum.enable();
@@ -161,7 +154,7 @@ export class BasicTable extends Component {
             <div className="card-body">
               <h2 className="card-title">
                 <span>
-                  <h1>Batch Overview</h1>
+                  <h1>History</h1>
                 </span>
               </h2>
               {/* <p className="card-description">
@@ -181,7 +174,7 @@ export class BasicTable extends Component {
                   </thead>
                   <tbody>
                     {this.state.list.map((listValue, index) => {
-                      if(this.ifValidated(index) && this.isOwner(listValue, index))
+                      if(this.ifValidated(index))
                       return (
                         <tr>
                         <Link to = {`/${listValue}`}>
@@ -191,55 +184,7 @@ export class BasicTable extends Component {
                           <td>{this.deal(index)}</td>
                           <td> {this.dte(index)} </td>
                           <td> {'' + this.dest(index)} </td>
-                          <td>
-                            <Button variant="primary" onClick={this.handleShow}>
-                              Transfer
-                            </Button>
 
-                            <Modal
-                              show={this.state.show}
-                              onHide={this.handleClose}
-                              body
-                              outline
-                              color="primary"
-                              className="border"
-                            >
-                              <Modal.Header closeButton>
-                                <Modal.Title>Transfer Ownerships</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>
-                              <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                                  <InputGroup.Text id="basic-addon1">
-                                    User-ID
-                                  </InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                  placeholder="User"
-                                  aria-label="Username"
-                                  aria-describedby="basic-addon1"
-                                  value = {this.state.transfer}
-                                  onChange = {event =>
-                                    this.setState({transfer: event.target.value})}
-                                />
-                              </InputGroup>
-                              </Modal.Body>
-                              <Modal.Footer>
-                                <Button
-                                  variant="secondary"
-                                  onClick={this.handleClose}
-                                 >
-                                  Close
-                                </Button>
-                                <Button
-                                  variant="primary"
-                                  onClick={(e) =>this.onSubmit(e,listValue)}
-                                >
-                                  Save Changes
-                                </Button>
-                              </Modal.Footer>
-                            </Modal>
-                          </td>
                         </tr>
                       );
                     })}

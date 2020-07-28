@@ -314,11 +314,11 @@ export class Dashboard extends Component {
                   </div>
                   <div className="float-right">
                     <p className="mb-0 text-right text-dark">My Address</p>
-                    <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">
+
+                      <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.addr}
-                      </h3>
-                    </div>
+                      </p>
+                  
                   </div>
                 </div>
                 <p className="text-muted mt-3 mb-0">
@@ -405,9 +405,9 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-        
+
         <BasicTable />
-        
+
       </div>
     );
   }

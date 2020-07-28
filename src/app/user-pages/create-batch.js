@@ -22,9 +22,9 @@ export class BlankPage extends Component {
 
  }
   catch(err){
-   //this.setState({errorMessage: err.message});
+
  }
- //this.setState({loading: false});
+ 
  };
  clearField = () => {
    this.setState({size:'', grade:'',color:''})

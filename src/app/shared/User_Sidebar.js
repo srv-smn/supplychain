@@ -138,6 +138,18 @@ class User_Sidebar extends Component {
               <span className="menu-title">Dashboard</span>
             </Link>
           </li>
+          <li
+            className={
+              this.isPathActive('/user-pages/new-batch')
+                ? 'nav-item active'
+                : 'nav-item'
+            }
+          >
+            <Link className="nav-link" to="/user-pages/new-batch">
+              <i className="fa fa-archive menu-icon"></i>
+              <span className="menu-title">New Batches</span>
+            </Link>
+          </li>
 
           <li
             className={
@@ -151,32 +163,19 @@ class User_Sidebar extends Component {
               <span className="menu-title">Create Batch</span>
             </Link>
           </li>
-
           <li
             className={
-              this.isPathActive('/form-elements')
+              this.isPathActive('/user-pages/history')
                 ? 'nav-item active'
                 : 'nav-item'
             }
           >
-            <Link className="nav-link" to="/form-elements/batch">
+            <Link className="nav-link" to="/user-pages/history">
               <i className="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span className="menu-title">Batch</span>
+              <span className="menu-title">History</span>
             </Link>
           </li>
 
-          <li
-            className={
-              this.isPathActive('/user-pages/new-batch')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/user-pages/new-batch">
-              <i className="fa fa-archive menu-icon"></i>
-              <span className="menu-title">New Batches</span>
-            </Link>
-          </li>
         </ul>
       </nav>
     );
