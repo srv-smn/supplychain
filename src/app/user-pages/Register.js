@@ -4,6 +4,7 @@ import factory from '../../ethereum/factory';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 
+
 export class Register extends Component {
   state ={
     name : '',

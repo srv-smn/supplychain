@@ -6,6 +6,8 @@ import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import factory from '../../ethereum/factory';
 import { Modal } from 'react-bootstrap';
+import QRCode from 'qrcode.react';
+import ReactDOM from 'react-dom';
 
 export class BasicElements extends Component {
   state = {
@@ -19,6 +21,19 @@ export class BasicElements extends Component {
     dates:[],
     ownersdet:[],
   };
+
+   downloadQR = () => {
+  const canvas = document.getElementById("123456");
+  const pngUrl = canvas
+    .toDataURL("image/png")
+    .replace("image/png", "image/octet-stream");
+  let downloadLink = document.createElement("a");
+  downloadLink.href = pngUrl;
+  downloadLink.download = "123456.png";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+};
 
 
   dte(index) {
@@ -178,6 +193,16 @@ constructor(props){
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <QRCode
+            id="123456"
+            value={"http://localhost:3000/" + this.state.balesAddr}
+            size={120}
+            level={"H"}
+            includeMargin={true}
+          />
+          <a onClick={this.downloadQR}> Download QR </a>
         </div>
 
 

@@ -8,18 +8,27 @@ import Sidebar from './shared/Sidebar';
 import User_Sidebar from './shared/User_Sidebar';
 import Footer from './shared/Footer';
 import CampaignIndex from './demo.js';
+import factory from '../ethereum/factory';
+import web3 from '../ethereum/web3';
 
 class App extends Component {
-  state = {};
-  componentDidMount() {
+  state = {
+    owner: false
+  };
+  async componentDidMount() {
+    
+    const accounts = await web3.eth.getAccounts();
+    const curOwner = await factory.methods.owner().call();
+    if(curOwner === accounts[0]){
+      this.setState({owner:true});
+    }
     this.onRouteChanged();
   }
   render() {
     let navbarComponent = !this.state.isFullPageLayout ? <Navbar /> : '';
-    var a = 2;
     let sidebarComponent;
     let appRoute
-    if (a === 2) {
+    if (!this.state.owner) {
       appRoute = !this.state.isFullPageLayout ? <AppRoutes /> : '';
       sidebarComponent = !this.state.isFullPageLayout ? <User_Sidebar /> : '';
     } else {

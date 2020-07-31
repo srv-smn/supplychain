@@ -19,7 +19,6 @@ export class Dashboard extends Component {
   };
   async componentDidMount() {
     try {
-      await window.ethereum.enable();
       const accounts = await web3.eth.getAccounts();
       const campaigns = await factory.methods.stakeholders(accounts[0]).call();
       this.setState({ addr: accounts[0] });
@@ -318,7 +317,7 @@ export class Dashboard extends Component {
                       <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.addr}
                       </p>
-                  
+
                   </div>
                 </div>
                 <p className="text-muted mt-3 mb-0">

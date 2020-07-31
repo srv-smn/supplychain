@@ -3,11 +3,10 @@ pragma solidity ^0.4.18;
 contract BalesFactory{
      // address[] public deployedBales ; // stores all the batch created on the platform
       address public owner ;            // address of the owner of the platform ie. central authority
-      mapping(address => bool) allowed; //Kyc verified stake holders
       mapping(address => stakeholder) public stakeholders; // address mapped with stake holders profile
       mapping(address => bool) public idCreated;    // Kyc verified address has created the profile or not
       mapping(address => address[]) public log ;    // the batch of bales linked with each stake holders
-      mapping(string => address) addfrmuid ;
+      mapping(string => address)  addfrmuid ;
       // uid mapped with stake holders profile
       // get address of all stake holder
       // add a new variable for verification flag
@@ -16,20 +15,20 @@ contract BalesFactory{
         string location;
         string name;
       }
-      function addFrmUid(string memory _add) public  returns(address)
+      function addFrmUid(string memory _add) public  view returns(address)
       {
           return addfrmuid[_add];
       }
 
-      function createStakeholders( string _uid , string _location , string _name) public kycDone { // creating profile for stake holder
+      function createStakeholders( address stk ,string _uid , string _location , string _name) public onlyOwner { // creating profile for stake holder
           stakeholder memory newstakeholder = stakeholder({
               uid : _uid,
               location : _location,
               name : _name
           });
-          stakeholders[msg.sender] = newstakeholder;
-          idCreated[msg.sender] = true;
-          addfrmuid[_uid] = msg.sender;
+          stakeholders[stk] = newstakeholder;
+          idCreated[stk] = true;
+          addfrmuid[_uid] = stk;
       }
 
      function addBales(address _sender , address cntrct ) public {//for below contract
@@ -49,7 +48,7 @@ contract BalesFactory{
           return log[_ad] ;
       }
 
-       function isEligible(address _ad) public returns(bool) { // checking if the stake holder is eligible of not
+       function isEligible(address _ad) public view returns(bool) { // checking if the stake holder is eligible of not
            return idCreated[_ad];
        }
 
@@ -59,25 +58,16 @@ contract BalesFactory{
       function BalesFactory() public { // constructor to set up owner
         owner = msg.sender;
       }
-      modifier kycDone(){ // modifier to check if KYC is done or not
-        require(allowed[msg.sender] );
-        _;
-      }
+     
       modifier onlyOwner() { // modifier for only owner
           require(msg.sender==owner );
           _;
       }
-      function setKycCompleted(address _addr) public onlyOwner { // verifying KYC of stake holders
-          allowed[_addr] = true;
-      }
+      
 
-      function setKycRevoked(address _addr) public onlyOwner { //revoking  verified KYC of stake holders
-          allowed[_addr] = false;
-      }
+      
 
-      function kycCompleted(address _addr) public returns(bool) { // checking if they are verified or not
-          return allowed[_addr];
-      }
+      
 
 
 }

@@ -1,93 +1,169 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import web3 from '../../ethereum/web3';
+
+import axios from 'axios';
 
 export class Error404 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // persons: [],
+      // users: [],
+      addr:'',
+      id1: '',
+      name: '',
+      loc: '',
+    };
+  }
+
+  // this.handleNameChange = this.handleNameChange.bind(this);
+
+  // this.handlePhoneChange = this.handlePhoneChange.bind(this);
+
+  changeHandler = async (e) => {this.setState({ [e.target.name]: e.target.value });
+  const accounts =await web3.eth.getAccounts();
+  this.setState({addr:accounts[0]});
+}
+
+  // handleNameChange(e) {
+  //   this.setState({ name: e.target.value });
+  // }
+  // handlePhoneChange(e) {
+  //   this.setState({ phone: e.target.value });
+  // }
+
+  // componentDidMount() {
+  //   axios.get('/user').then((res) => {
+  //     const persons = res.data;
+  //     this.setState({ persons });
+  //   });
+  // }
+
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    console.log(this.state);
+    // const employee = {
+    //   name: this.state.name,
+    //   phone: this.state.phone,
+
+    // };
+
+    axios
+      .post('http://localhost:3009/posts', this.state)
+      .then((response) => {
+        console.log(response);
+        // const persons = res.data;
+        // this.setState({ persons });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      window.location.reload(false);
+  };
+
+  clearField = () => {
+    this.setState({ id1: '', name: '', loc: '' });
+    const details =
+      this.state.id + ' ' + this.state.name + ' ' + this.state.loc;
+    console.log(details);
+  };
+
   render() {
+    const { id1, name, loc } = this.state;
+
     return (
       <div>
+        {/* <form onSubmit={this.submitHandler}> */}
+        {/* <div>
+            <input
+              type="text"
+              name="userId"
+              value={userId}
+              onChange={this.changeHandler}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="title"
+              value={title}
+              onChange={this.changeHandler}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name="body"
+              value={body}
+              onChange={this.changeHandler}
+            />
+          </div>
+
+          <button type="submit">Submit</button> */}
+        {/* </form> */}
+
         <div className="row">
           <div className="col-md-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Default form</h4>
-                <p className="card-description"> Basic form layout </p>
-                <form className="forms-sample">
+                <h4 className="card-title">Create Stakeholder</h4>
+
+                <form
+                  className="forms-sample"
+                  id="del"
+                  onSubmit={this.submitHandler}
+                >
                   <Form.Group>
-                    <label htmlFor="exampleInputUsername1">Username</label>
+                    <label htmlFor="exampleInputUsername1">Id</label>
                     <Form.Control
                       type="text"
                       id="exampleInputUsername1"
-                      placeholder="Username"
+                      name="id1"
+                      placeholder="Id"
                       size="lg"
+                      value={id1}
+                      onChange={this.changeHandler}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <label htmlFor="exampleInputEmail1">Name</label>
                     <Form.Control
-                      type="email"
+                      type="text"
                       className="form-control"
                       id="exampleInputEmail1"
-                      placeholder="Email"
+                      placeholder="Name"
+                      name="name"
+                      value={name}
+                      onChange={this.changeHandler}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <label htmlFor="exampleInputPassword1">Location</label>
                     <Form.Control
-                      type="password"
+                      type="text"
                       className="form-control"
                       id="exampleInputPassword1"
-                      placeholder="Password"
+                      placeholder="Location"
+                      name="loc"
+                      value={loc}
+                      onChange={this.changeHandler}
                     />
                   </Form.Group>
-                  <Form.Group>
-                    <label htmlFor="exampleInputConfirmPassword1">
-                      Confirm Password
-                    </label>
-                    <Form.Control
-                      type="password"
-                      className="form-control"
-                      id="exampleInputConfirmPassword1"
-                      placeholder="Password"
-                    />
-                  </Form.Group>
-                  <div className="form-check">
-                    <label className="form-check-label text-muted">
-                      <input type="checkbox" className="form-check-input" />
-                      <i className="input-helper"></i>
-                      Remember me
-                    </label>
-                  </div>
+
                   <button type="submit" className="btn btn-primary mr-2">
                     Submit
                   </button>
-                  <button className="btn btn-light">Cancel</button>
+                  <button className="btn btn-light" onClick={this.clearField}>
+                    Cancel
+                  </button>
                 </form>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <div className="d-flex align-items-center text-center error-page bg-primary pt-5 pb-4 h-100">
-          <div className="row flex-grow">
-            <div className="col-lg-8 mx-auto text-white">
-              <div className="row align-items-center d-flex flex-row">
-                <div className="col-lg-6 text-lg-right pr-lg-4">
-                  <h1 className="display-1 mb-0">404</h1>
-                </div>
-                <div className="col-lg-6 error-page-divider text-lg-left pl-lg-4">
-                  <h2>SORRY!</h2>
-                  <h3 className="font-weight-light">The page you’re looking for was not found.</h3>
-                </div>
-              </div>
-              <div className="row mt-5">
-                <div className="col-12 text-center mt-xl-2">
-                  <Link className="text-white font-weight-medium" to="/dashboard">Back to home</Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     );
   }

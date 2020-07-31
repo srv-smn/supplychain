@@ -63,12 +63,34 @@ export class Error404 extends Component {
     }
   }
 
-  deal(index) {//details
-    let dd = this.state.camp[index];
+  dealGrade(index) {
+    let dd = this.state.camp[index]
     if (dd != null) {
-      return dd['0'];
+      const res = dd['0'].split(" ");
+      return res[2];
     }
   }
+  dealType(index) {
+    let dd = this.state.camp[index]
+    if (dd != null) {
+      const res = dd['0'].split(" ");
+      return res[3];
+    }
+  }
+  dealLength(index) {
+      let dd = this.state.camp[index]
+      if (dd != null) {
+        const res = dd['0'].split(" ");
+        return res[0];
+      }
+    }
+    dealNumber(index) {
+      let dd = this.state.camp[index]
+      if (dd != null) {
+        const res = dd['0'].split(" ");
+        return res[1];
+      }
+    }
    ifValidated(index) {// if bales is validated
     let dd = this.state.validated[index]
      return dd;
@@ -102,7 +124,10 @@ export class Error404 extends Component {
                     <thead>
                       <tr>
                         <th>Address</th>
-                        <th>Details</th>
+                        <th> Grade</th>
+                        <th> Type</th>
+                        <th> Total Bales</th>
+                        <th> Length</th>
                         {/* <th>Contact No.</th>
               <th>Role</th> */}
                         <th>Date of Creation </th>
@@ -114,7 +139,10 @@ export class Error404 extends Component {
                       return (
                         <tr>
                         <td text-align="center">{listValue}</td>
-                        <td text-align="center">{this.deal(index)}</td>
+                        <td>{this.dealGrade(index)}</td>
+                        <td>{this.dealType(index)}</td>
+                        <td>{this.dealNumber(index)}</td>
+                        <td>{this.dealLength(index)}</td>
                         <td text-align="center">{this.dte(index)}</td>
                         <td>
                           <Button variant="primary" onClick={(e) =>this.onSubmit(e,listValue)}>

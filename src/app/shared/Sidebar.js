@@ -136,54 +136,37 @@ class Sidebar extends Component {
             </Link>
           </li> */}
           <li
-            className={
-              this.isPathActive('/tables') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/tables/overview">
-              <i className="mdi mdi-table-large menu-icon"></i>
-              <span className="menu-title">Batch</span>
-            </Link>
-          </li>
-          <li
-            className={
-              this.isPathActive('/form-elements')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/form-elements/batch">
-              <i className="mdi mdi-format-list-bulleted menu-icon"></i>
-              <span className="menu-title">Supply Path</span>
-            </Link>
-          </li>
+                     className={
+                       this.isPathActive('/user-pages/search')
+                         ? 'nav-item active'
+                         : 'nav-item'
+                     }
+                   >
+                     <Link className="nav-link" to="/user-pages/search">
+                       <i className="fa fa-search menu-icon"></i>
+                       <span className="menu-title">Search</span>
+                     </Link>
+                   </li>
 
-          {/* <li
-            className={
-              this.isPathActive('/user-pages/create-stk')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/user-pages/create-stk">
-              <i className="fa fa-users menu-icon"></i>
-              <span className="menu-title">Create Stakeholders</span>
-            </Link>
-          </li> */}
+                   <li
+                     className={
+                       this.isPathActive('/user-pages/fetch')
+                         ? 'nav-item active'
+                         : 'nav-item'
+                     }
+                   >
+                     <Link className="nav-link" to="/user-pages/fetch">
+                       <i className="fa fa-user menu-icon"></i>
+                       <span className="menu-title">User Verification</span>
+                     </Link>
+                   </li>
 
-          <li
-            className={
-              this.isPathActive('/user-pages/verify')
-                ? 'nav-item active'
-                : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/user-pages/verify">
-              <i className="fa fa-check menu-icon"></i>
-              <span className="menu-title">User Verification</span>
-            </Link>
-          </li>
 
+
+
+
+
+        
           <li
             className={
               this.isPathActive('/charts') ? 'nav-item active' : 'nav-item'

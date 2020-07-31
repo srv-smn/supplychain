@@ -8,51 +8,8 @@ import { Button, Form, FormControl,  InputGroup } from 'react-bootstrap';
 import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
+import QRCode from 'react-qr-code';
 
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  <a
-    href=""
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-    &#x25bc;
-  </a>
-));
-
-// forwardRef again here!
-// Dropdown needs access to the DOM of the Menu to measure it
-const CustomMenu = React.forwardRef(
-  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    const [value, setValue] = useState('');
-
-    return (
-      <div
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <FormControl
-          autoFocus
-          className="mx-3 my-2 w-auto"
-          placeholder="Type to filter..."
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-        <ul className="list-unstyled">
-          {React.Children.toArray(children).filter(
-            (child) =>
-              !value || child.props.children.toLowerCase().startsWith(value)
-          )}
-        </ul>
-      </div>
-    );
-  }
-);
 
 export class BasicTable extends Component {
   state = {
@@ -63,6 +20,9 @@ export class BasicTable extends Component {
     validated: [],
     transfer: ''
   };
+  constructor(props){
+    super(props);
+  }
 
   onSubmit = async (event,contractAdd) =>{
     try {
@@ -100,20 +60,12 @@ export class BasicTable extends Component {
  }
 
 
- dealGrade(index) {
-   let dd = this.state.camp[index]
-   if (dd != null) {
-     const res = dd['0'].split(" ");
-     return res[2];
-   }
- }
- dealType(index) {
-   let dd = this.state.camp[index]
-   if (dd != null) {
-     const res = dd['0'].split(" ");
-     return res[3];
-   }
- }
+  deal(index) {
+    let dd = this.state.camp[index];
+    if (dd != null) {
+      return dd['0'];
+    }
+  }
   owner(index) {
     let dd = this.state.camp[index];
     if (dd != null) {
@@ -126,16 +78,24 @@ export class BasicTable extends Component {
       return dd['3'];
     }
   }
-
+  isOwner(indexValue, index){
+    let res = false;
+    if(this.owner(index) == this.state.add)
+    {
+      res = true ;
+    }
+    return res;
+  }
   async componentDidMount() {
     try {
+      const {match: {params}} = this.props
       await window.ethereum.enable();
-      const accounts = await web3.eth.getAccounts();
+      const address = await factory.methods.addFrmUid(params.id).call();
       const campaigns = await factory.methods
-        .getDeployedBales(accounts[0])
+        .getDeployedBales(address)
         .call();
       this.setState({ list: campaigns });
-      this.setState({ add: accounts[0] });
+      this.setState({ add: address });
       console.log('@@@@@@@@@@@@2', campaigns[0]);
 
          this.state.list.map(async (listValue, index) => {
@@ -162,9 +122,10 @@ export class BasicTable extends Component {
             <div className="card-body">
               <h2 className="card-title">
                 <span>
-                  <h1>History</h1>
+                  <h1>Batch Overview</h1>
                 </span>
               </h2>
+
               {/* <p className="card-description">
                 {' '}
                 Add className <code>.table-striped</code>
@@ -175,8 +136,7 @@ export class BasicTable extends Component {
                     <tr>
                       <th> Contract Address </th>
                       <th> Owner </th>
-                      <th> Grade</th>
-                      <th> Type</th>
+                      <th> Details </th>
                       <th> Date of Creation </th>
                       <th> Destination </th>
                     </tr>
@@ -190,8 +150,7 @@ export class BasicTable extends Component {
                           <td className="py-1">{listValue}</td>
                         </Link>
                           <td>{this.owner(index)} </td>
-                          <td>{this.dealGrade(index)}</td>
-                          <td>{this.dealType(index)}</td>
+                          <td>{this.deal(index)}</td>
                           <td> {this.dte(index)} </td>
                           <td> {'' + this.dest(index)} </td>
 

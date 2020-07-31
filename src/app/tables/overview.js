@@ -8,6 +8,7 @@ import { Button, Form, FormControl,  InputGroup } from 'react-bootstrap';
 import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
+import QRCode from 'react-qr-code';
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -100,10 +101,18 @@ export class BasicTable extends Component {
  }
 
 
-  deal(index) {
-    let dd = this.state.camp[index];
+  dealGrade(index) {
+    let dd = this.state.camp[index]
     if (dd != null) {
-      return dd['0'];
+      const res = dd['0'].split(" ");
+      return res[2];
+    }
+  }
+  dealType(index) {
+    let dd = this.state.camp[index]
+    if (dd != null) {
+      const res = dd['0'].split(" ");
+      return res[3];
     }
   }
   owner(index) {
@@ -128,7 +137,7 @@ export class BasicTable extends Component {
   }
   async componentDidMount() {
     try {
-      await window.ethereum.enable();
+
       const accounts = await web3.eth.getAccounts();
       const campaigns = await factory.methods
         .getDeployedBales(accounts[0])
@@ -164,6 +173,7 @@ export class BasicTable extends Component {
                   <h1>Batch Overview</h1>
                 </span>
               </h2>
+
               {/* <p className="card-description">
                 {' '}
                 Add className <code>.table-striped</code>
@@ -174,7 +184,8 @@ export class BasicTable extends Component {
                     <tr>
                       <th> Contract Address </th>
                       <th> Owner </th>
-                      <th> Details </th>
+                      <th> Grade</th>
+                      <th> Type</th>
                       <th> Date of Creation </th>
                       <th> Destination </th>
                     </tr>
@@ -188,7 +199,8 @@ export class BasicTable extends Component {
                           <td className="py-1">{listValue}</td>
                         </Link>
                           <td>{this.owner(index)} </td>
-                          <td>{this.deal(index)}</td>
+                          <td>{this.dealGrade(index)}</td>
+                          <td>{this.dealType(index)}</td>
                           <td> {this.dte(index)} </td>
                           <td> {'' + this.dest(index)} </td>
                           <td>

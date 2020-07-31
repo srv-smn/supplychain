@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Spinner from '../app/shared/Spinner';
 
+
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
 const BasicElements = lazy(() => import('./form-elements/batch'));
@@ -16,7 +17,7 @@ const ChartJs = lazy(() => import('./charts/ChartJs'));
 const History = lazy(() => import('./user-pages/history'));
 const Newbatch = lazy(() => import('./user-pages/new-batch'));
 const Cbatch = lazy(() => import('./user-pages/create-batch'));
-const Register = lazy(() => import('./user-pages/Register'));
+const Register = lazy(() => import('./user-pages/create-stk'));
 const Demo = lazy(() => import('./form-elements/batch'));
 //User routing
 class AppRoutes extends Component {
