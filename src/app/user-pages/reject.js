@@ -38,7 +38,7 @@ export class BlankPage extends Component {
           <div className="col-md-6 grid-margin stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Search User and contract</h4>
+                <h4 className="card-title">Block Users</h4>
                 <InputGroup className="mb-3" value = {this.state.id}
                 onChange = {event =>
                   this.setState({id: event.target.value})}>

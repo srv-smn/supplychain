@@ -25,6 +25,17 @@ export class Error404 extends Component {
   }
   };
 
+  onReject = async (event,contractAdd) =>{
+    try {
+    const campaign = await Campaign(contractAdd);
+    await campaign.methods.removeOwner().send({ from: this.state.add});
+    window.location.reload();
+  }
+   catch(err){
+
+  }
+  };
+
   async componentDidMount() {
     try {
       await window.ethereum.enable();
@@ -147,6 +158,11 @@ export class Error404 extends Component {
                         <td>
                           <Button variant="primary" onClick={(e) =>this.onSubmit(e,listValue)}>
                             <i className="fa fa-angle-double-right"></i>Validate
+                          </Button>
+                        </td>
+                        <td>
+                          <Button variant="primary" onClick={(e) =>this.onReject(e,listValue)}>
+                            <i className="fa fa-angle-double-right"></i>Reject
                           </Button>
                         </td>
                         </tr>

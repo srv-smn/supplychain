@@ -11,7 +11,7 @@ export class BlankPage extends Component {
     size: '',
     grade: '',
     no: '',
-    mainadd: '0x5E0f0DC55809Caa002f96cCB26Cd495b16F6Ee2d', // change this before deploying to rinkeby,
+    mainadd: '0xb5F8c4abdd2334fF07347A91afcf64f30d43F164', // change this before deploying to rinkeby,
     types: '',
   };
   handleSelectGrade=(e)=>{

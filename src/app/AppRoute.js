@@ -19,6 +19,7 @@ const ChartJs = lazy(() => import('./charts/ChartJs'));
 
 const Fetch = lazy(() => import('./user-pages/fetch'));
 const Search = lazy(() => import('./user-pages/search'));
+const Reject = lazy(() => import('./user-pages/reject'));
 
 const Newbatch = lazy(() => import('./user-pages/create-batch'));
 // Admin Routing
@@ -27,7 +28,7 @@ class AppRoutes extends Component {
     return (
       <Suspense fallback={<Spinner />}>
         <Switch>
-
+          <Route path="/user-pages/rej" component={Reject} />
           <Route exact path="/dashboard2" component={Dashboard2} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />
@@ -39,6 +40,9 @@ class AppRoutes extends Component {
           <Route path="/charts/chart-js" component={ChartJs} />
 
           <Route path="/user-pages/fetch" component={Fetch} />
+
+
+
           <Route path="/user-pages/register" component={Register} />
 
           <Route path="/user-pages/search" component={Search} />

@@ -19,6 +19,7 @@ const Newbatch = lazy(() => import('./user-pages/new-batch'));
 const Cbatch = lazy(() => import('./user-pages/create-batch'));
 const Register = lazy(() => import('./user-pages/create-stk'));
 const Demo = lazy(() => import('./form-elements/batch'));
+const Reject = lazy(() => import('./user-pages/reject'));
 //User routing
 class AppRoutes extends Component {
   render() {
@@ -26,6 +27,7 @@ class AppRoutes extends Component {
       <Suspense fallback={<Spinner />}>
         <Switch>
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/user-pages/rej" component={Reject} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />
 

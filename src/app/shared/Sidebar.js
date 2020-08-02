@@ -155,6 +155,19 @@ class Sidebar extends Component {
                          : 'nav-item'
                      }
                    >
+                   <Link className="nav-link" to="/user-pages/rej">
+                     <i className="fa fa-ban menu-icon"></i>
+                     <span className="menu-title">Block User</span>
+                   </Link>
+                 </li>
+
+                 <li
+                   className={
+                     this.isPathActive('/user-pages/rej')
+                       ? 'nav-item active'
+                       : 'nav-item'
+                   }
+                 >
                      <Link className="nav-link" to="/user-pages/fetch">
                        <i className="fa fa-user menu-icon"></i>
                        <span className="menu-title">User Verification</span>

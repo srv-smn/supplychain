@@ -1,5 +1,8 @@
 pragma solidity ^0.4.18;
-
+// stake holder count
+// hacking   0xE6c4dBfBedbb345dc719C93B4079510D1a0788D3
+// In UI owner address pr click kro to owner info show kro
+// deploying on ganache remember to change address in factory and create bales
 contract BalesFactory{
      // address[] public deployedBales ; // stores all the batch created on the platform
       address public owner ;            // address of the owner of the platform ie. central authority
@@ -18,6 +21,14 @@ contract BalesFactory{
       function addFrmUid(string memory _add) public  view returns(address)
       {
           return addfrmuid[_add];
+      }
+
+      function removeOwnerMain(address ad)public {
+          address[] storage temp = log[ad];
+          delete temp[temp.length-1];
+            temp.length--;
+            log[ad] = temp ;
+
       }
 
       function createStakeholders( address stk ,string _uid , string _location , string _name) public onlyOwner { // creating profile for stake holder
@@ -52,22 +63,26 @@ contract BalesFactory{
            return idCreated[_ad];
        }
 
+    function notEligible(string memory _id) public onlyOwner { // checking if the stake holder is eligible of not
+        address ad = addFrmUid(_id);
+            idCreated[ad]= false ;
+       }
 
 
 
       function BalesFactory() public { // constructor to set up owner
         owner = msg.sender;
       }
-     
+
       modifier onlyOwner() { // modifier for only owner
           require(msg.sender==owner );
           _;
       }
-      
 
-      
 
-      
+
+
+
 
 
 }
@@ -123,6 +138,17 @@ contract Bales { // function and data related to bales
        validated[msg.sender] =true;
 
   }
+
+  function removeOwner() public restricted{
+      delete ownerships[ownerships.length-1];
+      ownerships.length--;
+      delete dates[dates.length-1];
+      dates.length--;
+      by.removeOwnerMain(owner);
+      owner = ownerships[ownerships.length-1];
+
+  }
+
 
   function finalise() public restricted {
     destination = true;
