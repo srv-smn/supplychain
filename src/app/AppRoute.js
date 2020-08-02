@@ -21,7 +21,6 @@ const Fetch = lazy(() => import('./user-pages/fetch'));
 const Search = lazy(() => import('./user-pages/search'));
 
 const Newbatch = lazy(() => import('./user-pages/create-batch'));
-const CreateStk = lazy(() => import('./user-pages/create-stk'));
 // Admin Routing
 class AppRoutes extends Component {
   render() {
@@ -38,8 +37,6 @@ class AppRoutes extends Component {
           <Route path="/icons/font-awesome" component={FontAwesome} />
 
           <Route path="/charts/chart-js" component={ChartJs} />
-
-          <Route path="/user-pages/create-stk" component={CreateStk} />
 
           <Route path="/user-pages/fetch" component={Fetch} />
           <Route path="/user-pages/register" component={Register} />

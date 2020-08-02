@@ -187,7 +187,7 @@ export class BasicTable extends Component {
                       return (
                         <tr>
                         <Link to = {`/${listValue}`}>
-                          <td className="py-1">{listValue}</td>
+                          <td className="py-1"><br></br>{listValue}</td>
                         </Link>
                           <td>{this.owner(index)} </td>
                           <td>{this.dealGrade(index)}</td>

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
 import factory from '../../ethereum/factory';
@@ -10,7 +11,7 @@ export class BlankPage extends Component {
     size: '',
     grade: '',
     no: '',
-    mainadd: '0xBFe09d37486C4De47d839717FCF16197b4C80CCA', // change this before deploying to rinkeby,
+    mainadd: '0x5E0f0DC55809Caa002f96cCB26Cd495b16F6Ee2d', // change this before deploying to rinkeby,
     types: '',
   };
   handleSelectGrade=(e)=>{
@@ -98,21 +99,19 @@ export class BlankPage extends Component {
 
                   <Form.Group>
                     <label htmlFor="exampleInputPassword1">
-                      Grade Of Bales
+
                     </label>
-                    <DropdownButton onSelect={this.handleSelectGrade}>
+                    <DropdownButton onSelect={this.handleSelectGrade} title="Grade Of Bales">
                         <Dropdown.Item eventKey="TD-1">TD-1</Dropdown.Item>
                         <Dropdown.Item eventKey="TD-2">TD-2</Dropdown.Item>
                         <Dropdown.Item eventKey="TD-3">TD-3</Dropdown.Item>
-                        <Dropdown.Item eventKey="TD-4">TD-4</Dropdown.Item>
-                        <Dropdown.Item eventKey="TD-5">TD-5</Dropdown.Item>
+
                         <Dropdown.Divider />
                         <Dropdown.Item eventKey="M1">M1</Dropdown.Item>
                         <Dropdown.Item eventKey="M2">M2</Dropdown.Item>
                         <Dropdown.Item eventKey="M3">M3</Dropdown.Item>
                         <Dropdown.Item eventKey="M4">M4</Dropdown.Item>
-                        <Dropdown.Item eventKey="M5">M5</Dropdown.Item>
-                        <Dropdown.Item eventKey="M6">M6</Dropdown.Item>
+
                     </DropdownButton>
                     <h4>You selected {this.state.grade}</h4>
 
@@ -135,9 +134,9 @@ export class BlankPage extends Component {
 
                   <Form.Group>
                     <label htmlFor="exampleInputPassword1">
-                      Types of Bales
+
                     </label>
-                    <DropdownButton onSelect={this.handleSelectTypes}>
+                    <DropdownButton onSelect={this.handleSelectTypes}title="Types of Bales">
                         <Dropdown.Item eventKey="White">White</Dropdown.Item>
                         <Dropdown.Item eventKey="Tossa">Tossa</Dropdown.Item>
                         <Dropdown.Item eventKey="Mesta">Mesta</Dropdown.Item>

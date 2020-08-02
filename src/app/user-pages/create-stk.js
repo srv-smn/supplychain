@@ -61,7 +61,7 @@ export class Error404 extends Component {
       .catch((error) => {
         console.log(error);
       });
-      window.location.reload(false);
+       window.location.reload(false);
   };
 
   clearField = () => {
@@ -76,41 +76,15 @@ export class Error404 extends Component {
 
     return (
       <div>
-        {/* <form onSubmit={this.submitHandler}> */}
-        {/* <div>
-            <input
-              type="text"
-              name="userId"
-              value={userId}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="title"
-              value={title}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="body"
-              value={body}
-              onChange={this.changeHandler}
-            />
-          </div>
-
-          <button type="submit">Submit</button> */}
-        {/* </form> */}
-
-        <div className="row">
-          <div className="col-md-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Create Stakeholder</h4>
-
+        <div className="d-flex align-items-center auth px-0">
+          <div className="row w-100 mx-0">
+            <div className="col-lg-4 mx-auto">
+              <div className="auth-form-light text-left py-5 px-4 px-sm-5">
+                <div className="brand-logo">
+                  <img src={require("../../assets/images/logo.PNG")} alt="logo" />
+                </div>
+                <h4>New here?</h4>
+                <h6 className="font-weight-light">Signing up is easy. It only takes a few steps</h6>
                 <form
                   className="forms-sample"
                   id="del"
@@ -153,12 +127,23 @@ export class Error404 extends Component {
                     />
                   </Form.Group>
 
-                  <button type="submit" className="btn btn-primary mr-2">
-                    Submit
-                  </button>
-                  <button className="btn btn-light" onClick={this.clearField}>
-                    Cancel
-                  </button>
+
+                  <div className="mb-4">
+                    <div className="form-check">
+                      <label className="form-check-label text-muted">
+                        <input type="checkbox" className="form-check-input" />
+                        <i className="input-helper"></i>
+                        I agree to all Terms & Conditions
+                      </label>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                  <button type="submit" className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                      Submit
+                                    </button>                  </div>
+                  <div className="text-center mt-4 font-weight-light">
+                    Already have an account? <Link to="/user-pages/login" className="text-primary">Login</Link>
+                  </div>
                 </form>
               </div>
             </div>

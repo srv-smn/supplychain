@@ -99,24 +99,24 @@ constructor(props){
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-cube text-danger icon-lg"></i>
+                    <i className="fa fa-id-card text-danger icon-lg"></i>
                   </div>
-                  <div className="float-right">
+                  <div className="">
                     <p className="mb-0 text-right text-dark">Batch Address</p>
                     <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">
+                      <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.balesAddr}
-                      </h3>
+                      </p>
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i
                     className="mdi mdi-alert-octagon mr-1"
                     aria-hidden="true"
                   ></i>{' '}
                   65% lower growth{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -127,8 +127,8 @@ constructor(props){
                   <div className="float-left">
                     <i className="mdi mdi-receipt text-warning icon-lg"></i>
                   </div>
-                  <div className="float-right">
-                    <p className="mb-0 text-right text-dark">Details</p>
+                  <div className="">
+                    <p className="mb-0 text-right text-dark">Size | Total Bales | Grade | Type</p>
                     <div className="fluid-container">
                       <h3 className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.details}
@@ -136,13 +136,13 @@ constructor(props){
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i
                     className="mdi mdi-bookmark-outline mr-1"
                     aria-hidden="true"
                   ></i>{' '}
                   Product-wise sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -151,21 +151,21 @@ constructor(props){
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-poll-box text-success icon-lg"></i>
+                    <i className="fa fa-id-badge text-success icon-lg"></i>
                   </div>
-                  <div className="float-right">
+                  <div className="">
                     <p className="mb-0 text-right text-dark">Owner</p>
                     <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">
+                      <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.owner}
-                      </h3>
+                      </p>
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i className="mdi mdi-calendar mr-1" aria-hidden="true"></i>{' '}
                   Weekly Sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -175,26 +175,26 @@ constructor(props){
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-account-box-multiple text-info icon-lg"></i>
+                    <i className="fa fa-address-card text-info icon-lg"></i>
                   </div>
-                  <div className="float-right">
+                  <div className="">
                     <p className="mb-0 text-right text-dark">Origin</p>
                     <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">
+                      <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.origin}
-                      </h3>
+                      </p>
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i className="mdi mdi-reload mr-1" aria-hidden="true"></i>{' '}
                   Product-wise sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
         </div>
-        <div>
+        <div className="pul-right">
           <QRCode
             id="123456"
             value={"http://localhost:3000/" + this.state.balesAddr}
@@ -218,7 +218,7 @@ constructor(props){
                     </div>
                     <div class="timeline-panel" id="cultivationSection">
                       <div class="timeline-heading">
-                        <h4 class="timeline-title">Destination</h4>
+                        <h4 class="timeline-title">Position</h4>
                         <p>
                           <small class="text-muted text-success activityDateTime"></small>{' '}
                         </p>

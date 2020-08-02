@@ -16,7 +16,7 @@ class App extends Component {
     owner: false
   };
   async componentDidMount() {
-    
+    window.ethereum.enable();
     const accounts = await web3.eth.getAccounts();
     const curOwner = await factory.methods.owner().call();
     if(curOwner === accounts[0]){
@@ -29,10 +29,10 @@ class App extends Component {
     let sidebarComponent;
     let appRoute
     if (!this.state.owner) {
-      appRoute = !this.state.isFullPageLayout ? <AppRoutes /> : '';
+      appRoute = <AppRoutes /> ;
       sidebarComponent = !this.state.isFullPageLayout ? <User_Sidebar /> : '';
     } else {
-      appRoute = !this.state.isFullPageLayout ? <AppRoute /> : '';
+      appRoute = <AppRoute />;
       sidebarComponent = !this.state.isFullPageLayout ? <Sidebar /> : '';
 
     }
@@ -64,9 +64,9 @@ class App extends Component {
     console.log('ROUTE CHANGED');
     window.scrollTo(0, 0);
     const fullPageLayoutRoutes = [
-      '/user-pages/login-1',
+      '/user-pages/login',
       '/user-pages/login-2',
-      '/user-pages/register-1',
+      '/user-pages/register',
       '/user-pages/register-2',
       '/user-pages/lockscreen',
       '/error-pages/error-404',

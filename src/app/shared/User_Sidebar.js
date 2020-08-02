@@ -2,9 +2,31 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Collapse } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
+import factory from '../../ethereum/factory';
+import Campaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
 
 class User_Sidebar extends Component {
-  state = {};
+    state = {
+      add: '',
+      name:'',
+    };
+
+    async componentDidMount() {
+      try {
+        console.log("@@@@@@@@@@ abc");
+        const accounts = await web3.eth.getAccounts();
+        const campaigns = await factory.methods
+          .stakeholders(accounts[0])
+          .call();
+        const nme = campaigns[2]
+        this.setState({name: nme});
+        this.setState({add: accounts[0]});
+
+      } catch (err) {
+
+      }
+    }
 
   toggleMenuState(menuState) {
     if (this.state[menuState]) {
@@ -52,7 +74,7 @@ class User_Sidebar extends Component {
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
           <a className="sidebar-brand brand-logo" href="index.html">
-            <img src={require('../../assets/images/logo.svg')} alt="logo" />
+            <img src={require('../../assets/images/logo.PNG')} alt="logo" />
           </a>
           <a className="sidebar-brand brand-logo-mini pt-3" href="index.html">
             <img
@@ -74,7 +96,7 @@ class User_Sidebar extends Component {
                       />
                     </div>
                     <div className="text-left ml-3">
-                      <p className="profile-name">Name....!</p>
+                      <p className="profile-name">{this.state.name}</p>
                       <small className="designation text-muted text-small">
                         User
                       </small>

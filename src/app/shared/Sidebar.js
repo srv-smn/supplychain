@@ -74,7 +74,7 @@ class Sidebar extends Component {
                       />
                     </div>
                     <div className="text-left ml-3">
-                      <p className="profile-name">Name....!</p>
+                      <p className="profile-name"></p>
                       <small className="designation text-muted text-small">
                         Admin
                       </small>
@@ -161,22 +161,6 @@ class Sidebar extends Component {
                      </Link>
                    </li>
 
-
-
-
-
-
-        
-          <li
-            className={
-              this.isPathActive('/charts') ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link className="nav-link" to="/charts/chart-js">
-              <i className="mdi mdi-chart-line menu-icon"></i>
-              <span className="menu-title">Report</span>
-            </Link>
-          </li>
         </ul>
       </nav>
     );

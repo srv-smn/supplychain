@@ -306,27 +306,27 @@ export class Dashboard extends Component {
         <div className="row">
           <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
             <div className="card card-statistics">
-              <div className="card-body">
+              <div className="card-body justify-content-center">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-cube text-danger icon-lg"></i>
+                    <i className="mdi mdi-account-network text-danger icon-lg"></i>
                   </div>
-                  <div className="float-right">
+                  <div className="">
                     <p className="mb-0 text-right text-dark">My Address</p>
-                    <div className="fluid-container">
-                      <h3 className="font-weight-medium text-right mb-0 text-dark">
+
+                      <p className="font-weight-medium text-right mb-0 text-dark">
                         {this.state.addr}
-                      </h3>
-                    </div>
+                      </p>
+
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i
                     className="mdi mdi-alert-octagon mr-1"
                     aria-hidden="true"
                   ></i>{' '}
                   65% lower growth{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -346,13 +346,13 @@ export class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i
                     className="mdi mdi-bookmark-outline mr-1"
                     aria-hidden="true"
                   ></i>{' '}
                   Product-wise sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -361,7 +361,7 @@ export class Dashboard extends Component {
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-poll-box text-success icon-lg"></i>
+                    <i className="mdi mdi-account-box-multiple text-success icon-lg"></i>
                   </div>
                   <div className="float-right">
                     <p className="mb-0 text-right text-dark">Name</p>
@@ -372,19 +372,20 @@ export class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i className="mdi mdi-calendar mr-1" aria-hidden="true"></i>{' '}
                   Weekly Sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
+
           <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 grid-margin stretch-card">
             <div className="card card-statistics">
               <div className="card-body">
                 <div className="clearfix">
                   <div className="float-left">
-                    <i className="mdi mdi-account-box-multiple text-info icon-lg"></i>
+                    <i className="fa fa-location-arrow text-info icon-lg"></i>
                   </div>
                   <div className="float-right">
                     <p className="mb-0 text-right text-dark">Location</p>
@@ -395,10 +396,10 @@ export class Dashboard extends Component {
                     </div>
                   </div>
                 </div>
-                <p className="text-muted mt-3 mb-0">
+                {/* <p className="text-muted mt-3 mb-0">
                   <i className="mdi mdi-reload mr-1" aria-hidden="true"></i>{' '}
                   Product-wise sales{' '}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
@@ -432,7 +433,7 @@ export class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <BasicTable />
+        {/* <BasicTable />*/}
       </div>
     );
   }

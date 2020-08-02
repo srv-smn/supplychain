@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'react-bootstrap';
+import factory from '../../ethereum/factory';
+import Campaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
 
 class Navbar extends Component {
+  state = {
+    add: '',
+    name:'',
+  };
+  async componentDidMount() {
+    try {
+
+      const accounts = await web3.eth.getAccounts();
+      const campaigns = await factory.methods
+        .stakeholders(accounts[0])
+        .call();
+      const nme = campaigns[2]
+      this.setState({name: nme});
+
+    } catch (err) {
+
+    }
+  }
+
+
   toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
@@ -31,7 +54,7 @@ class Navbar extends Component {
               <a href="!#" onClick={evt =>evt.preventDefault()} className="nav-link">Schedule <span className="badge badge-primary ml-1">New</span>
               </a>
             </li> */}
-            <li className="nav-item active d-none d-xl-flex">
+            {/*  <li className="nav-item active d-none d-xl-flex">
               <a
                 href="!#"
                 onClick={(evt) => evt.preventDefault()}
@@ -39,7 +62,7 @@ class Navbar extends Component {
               >
                 <i className="mdi mdi-elevation-rise"></i>Reports
               </a>
-            </li>
+            </li>*/}
             {/* <li className="nav-item d-none d-lg-flex">
               <a href="!#" onClick={evt =>evt.preventDefault()} className="nav-link">
                 <i className="mdi mdi-bookmark-plus-outline"></i>Score</a>
@@ -128,7 +151,7 @@ class Navbar extends Component {
             <li className="nav-item  nav-profile border-0">
               <Dropdown alignRight>
                 <Dropdown.Toggle className="nav-link count-indicator bg-transparent">
-                  <span className="profile-text">Name.....!</span>
+                  <span className="profile-text">{this.state.name}</span>
                   <img
                     className="img-xs rounded-circle"
                     src={require('../../assets/images/faces/face8.jpg')}
