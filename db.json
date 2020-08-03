@@ -5,5 +5,97 @@
       "title": "json-server",
       "author": "typicode"
     }
+  ],
+  "comp": [
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "resolved",
+      "id": 7
+    },
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "resolved",
+      "id": 8
+    },
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "resolved",
+      "id": 9
+    },
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "unresolved",
+      "id": 10
+    },
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "unresolved",
+      "id": 11
+    },
+    {
+      "id1": "123",
+      "name": "Anishk Singh",
+      "email": "sandeep04kumar07@gmail.com",
+      "date": "2020-08-20",
+      "complain": "ww",
+      "status": "resolved",
+      "id": 12
+    },
+    {
+      "id1": "101",
+      "name": "srv",
+      "email": "abc@a.com",
+      "date": "2020-08-04",
+      "complain": "issue",
+      "status": "resolved",
+      "id": 13
+    },
+    {
+      "id1": "101",
+      "name": "srv",
+      "email": "abc@a.com",
+      "date": "2020-08-04",
+      "complain": "issue",
+      "status": "unresolved",
+      "id": 14
+    },
+    {
+      "id1": "101",
+      "name": "srv",
+      "email": "abc@a.com",
+      "date": "2020-08-04",
+      "complain": "issue",
+      "status": "unresolved",
+      "id": 15
+    },
+    {
+      "id1": "fdscefs",
+      "name": "sdcsdc",
+      "email": "abc@a.com",
+      "date": "2020-08-04",
+      "complain": "cdcd",
+      "status": "unresolved",
+      "id": 16
+    }
   ]
 }

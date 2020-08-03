@@ -14,7 +14,9 @@ const BasicTable = lazy(() => import('./tables/overview'));
 const Verification = lazy(() => import('./user-pages/verify'));
 
 const FontAwesome = lazy(() => import('./icons/FontAwesome'));
+const Issues = lazy(() => import('./tables/issues'));
 
+const Issues1 = lazy(() => import('./tables/issuer'));
 const ChartJs = lazy(() => import('./charts/ChartJs'));
 
 const Fetch = lazy(() => import('./user-pages/fetch'));
@@ -32,7 +34,9 @@ class AppRoutes extends Component {
           <Route exact path="/dashboard2" component={Dashboard2} />
 
           <Route path="/form-Elements/batch" component={BasicElements} />
+          <Route path="/tables/issues" component={Issues} />
 
+          <Route path="/tables/issue-resolve" component={Issues1} />
           <Route path="/tables/overview" component={BasicTable} />
 
           <Route path="/icons/font-awesome" component={FontAwesome} />

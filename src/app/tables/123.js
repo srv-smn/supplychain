@@ -1,63 +1,59 @@
-import React, { Component } from 'react';
-import { Button, Form, FormControl, InputGroup,Card } from 'react-bootstrap';
-import factory from '../../ethereum/factory';
-import Campaign from '../../ethereum/campaign';
-import web3 from '../../ethereum/web3';
-import  { Link } from 'react-router-dom'
+import React, { Component, Suspense, lazy } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-export class BlankPage extends Component {
-  state = {
-    id:'',
-    ctr:'',
+import Spinner from '../app/shared/Spinner';
 
-  };
 
-  onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const accounts = await web3.eth.getAccounts();
-      await factory.methods
-        .notEligible(this.state.id)
-        .send({ from: accounts[0] });
+const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
-      const addr = await factory.methods
-          .addFrmUid(this.state.id)
-          .call();
-      await factory.methods.createStakeholders(addr,'Account Rejected','Account Rejected','Account Rejected').send({ from: accounts[0]});
+const BasicElements = lazy(() => import('./form-elements/batch'));
 
-    } catch (err) {
-      //this.setState({errorMessage: err.message});
-    }
-    //this.setState({loading: false});
-  };
+const BasicTable = lazy(() => import('./tables/overview'));
 
+const FontAwesome = lazy(() => import('./icons/FontAwesome'));
+
+const Login = lazy(() => import('./user-pages/Login'));
+const ChartJs = lazy(() => import('./charts/ChartJs'));
+const History = lazy(() => import('./user-pages/history'));
+const Newbatch = lazy(() => import('./user-pages/new-batch'));
+const Cbatch = lazy(() => import('./user-pages/create-batch'));
+const Register = lazy(() => import('./user-pages/create-stk'));
+const Demo = lazy(() => import('./form-elements/batch'));
+const Reject = lazy(() => import('./user-pages/reject'));
+//User routing
+class AppRoutes extends Component {
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-md-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Search User and contract</h4>
-                <InputGroup className="mb-3" value = {this.state.id}
-                onChange = {event =>
-                  this.setState({id: event.target.value})}>
-                  <FormControl
-                    placeholder="Recipient's userID"
-                    aria-label="Recipient's username"
-                    aria-describedby="basic-addon2"
-                  />
-                  <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={this.onSubmit}>Reject</Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Suspense fallback={<Spinner />}>
+        <Switch>
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/user-pages/rej" component={Reject} />
+
+          <Route path="/form-Elements/batch" component={BasicElements} />
+
+          <Route path="/tables/overview" component={BasicTable} />
+
+          <Route path="/icons/font-awesome" component={FontAwesome} />
+
+          <Route path="/charts/chart-js" component={ChartJs} />
+
+          <Route path="/user-pages/create-batch" component={Cbatch} />
+
+          <Route path="/user-pages/register" component={Register} />
+
+
+          <Route path="/user-pages/login" component={Login} />
+
+          <Route path="/user-pages/history" component={History} />
+
+          <Route path="/user-pages/new-batch" component={Newbatch} />
+          <Route exact path="/:id" component={Demo} />
+
+          <Redirect to="/dashboard" />
+        </Switch>
+      </Suspense>
     );
   }
 }
 
-export default BlankPage;
+export default AppRoutes;

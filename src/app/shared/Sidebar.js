@@ -173,6 +173,31 @@ class Sidebar extends Component {
                        <span className="menu-title">User Verification</span>
                      </Link>
                    </li>
+                   <li
+                     className={
+                       this.isPathActive('/tables/issues')
+                         ? 'nav-item active'
+                         : 'nav-item'
+                     }
+                   >
+                       <Link className="nav-link" to="/tables/issues">
+                         <i className="fa fa-exclamation menu-icon"></i>
+                         <span className="menu-title">Issues</span>
+                       </Link>
+                     </li>
+                     <li
+                       className={
+                         this.isPathActive('/tables/issue-resolve')
+                           ? 'nav-item active'
+                           : 'nav-item'
+                       }
+                     >
+                         <Link className="nav-link" to="/tables/issue-resolve">
+                           <i className="fa fa-check menu-icon"></i>
+                           <span className="menu-title">Issue Resolve</span>
+                         </Link>
+                       </li>
+
 
         </ul>
       </nav>

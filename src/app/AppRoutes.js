@@ -11,7 +11,7 @@ const BasicElements = lazy(() => import('./form-elements/batch'));
 const BasicTable = lazy(() => import('./tables/overview'));
 
 const FontAwesome = lazy(() => import('./icons/FontAwesome'));
-
+const Ticket = lazy(() => import('./tables/raise-tikt'));
 const Login = lazy(() => import('./user-pages/Login'));
 const ChartJs = lazy(() => import('./charts/ChartJs'));
 const History = lazy(() => import('./user-pages/history'));
@@ -32,7 +32,7 @@ class AppRoutes extends Component {
           <Route path="/form-Elements/batch" component={BasicElements} />
 
           <Route path="/tables/overview" component={BasicTable} />
-
+          <Route path="/tables/raise-tikt" component={Ticket} />
           <Route path="/icons/font-awesome" component={FontAwesome} />
 
           <Route path="/charts/chart-js" component={ChartJs} />

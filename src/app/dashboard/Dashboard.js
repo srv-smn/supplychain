@@ -6,6 +6,7 @@ import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
 import factory from '../../ethereum/factory';
 import BasicTable from '../tables/overview';
+import Ttable from '../tables/tickets';
 
 // import DatePicker from 'react-datepicker';
 // import { Dropdown } from 'react-bootstrap';
@@ -406,7 +407,8 @@ export class Dashboard extends Component {
       </div>
 
         <BasicTable />
-
+      
+        <Ttable />
       </div>
     );
   }

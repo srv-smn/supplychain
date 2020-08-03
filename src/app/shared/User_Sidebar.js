@@ -197,6 +197,16 @@ class User_Sidebar extends Component {
               <span className="menu-title">History</span>
             </Link>
           </li>
+          <li
+            className={
+              this.isPathActive('/tables/raise-tikt') ? 'nav-item active' : 'nav-item'
+            }
+          >
+            <Link className="nav-link" to="/tables/raise-tikt">
+              <i className="fa fa-ticket menu-icon"></i>
+              <span className="menu-title">Creatse Ticket</span>
+            </Link>
+          </li>
 
         </ul>
       </nav>
