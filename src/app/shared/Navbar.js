@@ -3,6 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import factory from '../../ethereum/factory';
 import Campaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import { Link, withRouter } from 'react-router-dom';
 
 class Navbar extends Component {
   state = {
@@ -54,21 +55,24 @@ class Navbar extends Component {
               <a href="!#" onClick={evt =>evt.preventDefault()} className="nav-link">Schedule <span className="badge badge-primary ml-1">New</span>
               </a>
             </li> */}
-            {/*  <li className="nav-item active d-none d-xl-flex">
-              <a
-                href="!#"
-                onClick={(evt) => evt.preventDefault()}
-                className="nav-link"
-              >
-                <i className="mdi mdi-elevation-rise"></i>Reports
-              </a>
-            </li>*/}
+           <li className="nav-item active d-none d-xl-flex">
+
+           <Link className="nav-link" to="/charts/chart-js">
+             <i className="mdi mdi-elevation-rise"></i>
+             <span className="menu-title">Report</span>
+           </Link>
+
+
+            </li>
             {/* <li className="nav-item d-none d-lg-flex">
               <a href="!#" onClick={evt =>evt.preventDefault()} className="nav-link">
                 <i className="mdi mdi-bookmark-plus-outline"></i>Score</a>
             </li> */}
           </ul>
           <ul className="navbar-nav navbar-nav-right ml-lg-auto">
+          <li>
+             <div id="google_translate_element"></div>
+           </li>
             <li className="nav-item  nav-profile border-0 pl-4">
               <Dropdown alignRight>
                 <Dropdown.Toggle className="nav-link count-indicator p-0 toggle-arrow-hide bg-transparent">
