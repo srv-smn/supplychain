@@ -7,7 +7,6 @@ import Navbar from './shared/Navbar';
 import Sidebar from './shared/Sidebar';
 import User_Sidebar from './shared/User_Sidebar';
 import Footer from './shared/Footer';
-import CampaignIndex from './demo.js';
 import factory from '../ethereum/factory';
 import web3 from '../ethereum/web3';
 

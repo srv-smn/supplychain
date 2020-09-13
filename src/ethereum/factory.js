@@ -4,7 +4,7 @@ import CampaignFactory from './build/BalesFactory.json';
 // 0xdb62207c995AB52391eb6A18633a1b48B3b3FB26 for ganache
 const instance = new web3.eth.Contract(
   JSON.parse(CampaignFactory.interface),
-  '0xb5F8c4abdd2334fF07347A91afcf64f30d43F164'
+  '0x465628f53AB6E03d1F29E1fd1a34E8C838Df1D7F'
 );
 
 export default instance ;

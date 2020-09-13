@@ -204,7 +204,7 @@ class User_Sidebar extends Component {
           >
             <Link className="nav-link" to="/tables/raise-tikt">
               <i className="fa fa-ticket menu-icon"></i>
-              <span className="menu-title">Creatse Ticket</span>
+              <span className="menu-title">Create Ticket</span>
             </Link>
           </li>
 

@@ -48,7 +48,6 @@ export class BasicElements extends Component {
   }
    location(addr) {
      const stakeholder = this.state.ownersdet[addr]
-      console.log("ye dekho",stakeholder)
       if (stakeholder != null){
       const dt = stakeholder[1];
       return dt;
@@ -71,12 +70,10 @@ constructor(props){
       await window.ethereum.enable();
       const campaign = await Campaign(params.id);
       const summary = await campaign.methods.getSummary().call();
-      console.log("Summary",summary);
       await this.setState({ details: summary[0] ,owner: summary[1],origin: summary[2] ,destination: summary[3],ownerships: summary[4] ,dates: summary[5]});
 
        this.state.ownerships.map(async (listValue, index) => {
         let det = await factory.methods.stakeholders(listValue).call();
-        console.log("owners det",det);
         let temp = [...this.state.ownersdet, det];
         await this.setState({ ownersdet: temp });
       });

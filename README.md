@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# SupplyChain based on Blockchain
+## This supply chain is mainly designed for primary products(farming sector)
+### This is a blockchain based supplychain for jute bales . 
 
-## Available Scripts
 
-In the project directory, you can run:
+## About the application
+#### The application contains the following page
 
-### `npm start`
+##### Create Batch
+![Create Batch](/pic/create batch.gif)
+The primary owner of the product have to register his product in the supply chain before the product can enter into the cupply chain.
+To register his product he have to fill the details can click submit
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##### Transfer Ownership
+  ![Transfer Ownership](/pic/transfer ownership.gif)
+  Once the batch is created , the product will be listed on to the main dashboard page of the current owner , and If the current owner want to pass on the product to the next consignee then along with the product he has to transfer the the ownership also to the next consignee.
+  
+  The ownership can be trancfered by just clicking on to the transfer button and provide the unique ID of the next consignee.
+  
+  Once the ownership is transfered from the current owner to next owner then the listing of the product will be removed dashboard home page to history page of dashboard
+ 
+##### conform ownership
+  ![conform ownership](/pic/conform ownership.gif)
+  Once the ownership is transfered from old to the new owner , now the ownership for that product will be approved by the new owner.
+  the pending ownership request is listed in the new batches section.
+  This feature will ensure that no goods are lost in transit and in case it is lost , the product can be trased back.
+  Once the new owner found that the product that he has recived is same as mentioned in the details section of the product , then he can approve the product and the ownership will be conformed by the new user. 
+  once the ownership is approved the product will be removed from the new batches section and will be listed in the home page of the dashboard of the current owner.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+##### revert ownership
+  ![revert ownership](/pic/revert ownership.gif)
+  After reveiving the product if the new owner find that the product is not same as mentioned in the details then the new owner can reject the ownership and the ownership will be reverted back to old owner.
+  
+##### supply path
+  ![supply path](/pic/supply path.gif)
+  Any one can track the path of the goods if they have the unique id for the product batch.
+  The admin just have to click on to the unique id and he will get the supply path of the product and the full details of the product.
+  A barcode is also present , any one can scan that barcode and will be able to see the path of the bales and its details.
+  you can use RFID rather than barcode.
+  
+  ## There are many other additional features
+  ### Some features are listed below 
+  
+  ##### Admin
+   ![Admin](/pic/admin.gif)
+   The admin can see the details of any of the stakes holders just by searching their UID.
+   If needed the Admin can also block the user from supply chain.
+   
+##### Multi lingul   
+   ![Multi lingul](/pic/multi lingual.gif)
+    As this supply chain is ment for stakes holders involved in farming and a supplychain includes stakes holders from various geographical location so there is multi language support 
 
-### `npm test`
+  
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### For any query feel free to contact [Sourav Suman ](https://www.linkedin.com/in/srvsmn)

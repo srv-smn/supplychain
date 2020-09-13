@@ -144,7 +144,6 @@ export class BasicTable extends Component {
         .call();
       this.setState({ list: campaigns });
       this.setState({ add: accounts[0] });
-      console.log('@@@@@@@@@@@@2', campaigns[0]);
 
          this.state.list.map(async (listValue, index) => {
         console.log('index', listValue);

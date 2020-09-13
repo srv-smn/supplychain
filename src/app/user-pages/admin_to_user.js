@@ -1,14 +1,7 @@
-import React, { Component, useState } from 'react';
-import { ProgressBar } from 'react-bootstrap';
+import React, { Component } from 'react';
 import factory from '../../ethereum/factory';
 import Campaign from '../../ethereum/campaign';
-import web3 from '../../ethereum/web3';
-import { Modal } from 'react-bootstrap';
-import { Button, Form, FormControl,  InputGroup } from 'react-bootstrap';
-import { Badge, Card, CardBody, CardTitle, Row, Col } from 'reactstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
-import QRCode from 'react-qr-code';
 
 
 export class BasicTable extends Component {
